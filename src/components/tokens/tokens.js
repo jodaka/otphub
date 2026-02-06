@@ -1,5 +1,7 @@
 import { Token } from "./token.js";
 import { Secret } from "./otpauth.esm.js";
+const { writeText } = window.__TAURI__.clipboardManager;
+// import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 
 let windowIsVisible = true;
 
@@ -13,13 +15,13 @@ const rerenderAllTokens = (wrapper, tokens) => {
   wrapper.innerHTML = `<div class="tokens">${html}</div>`;
 };
 
-const handleTokenClick = (e, tokenInstances) => {
+const handleTokenClick = async (e, tokenInstances) => {
   const tokenWrapper = e.target.closest(".token");
   if (tokenWrapper) {
     const index = tokenWrapper.getAttribute("index");
     const token = tokenInstances[index];
 
-    window.__TAURI__.clipboard.writeText(token.token);
+    await writeText(token.token);
     token.tokenValueRef.innerText = "Copied";
 
     setTimeout(() => {
