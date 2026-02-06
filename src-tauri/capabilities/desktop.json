@@ -1,7 +1,8 @@
 {
   "identifier": "desktop-capability",
-  "description": "permissions that were migrated from v1",
+  "description": "permissions for desktop platforms",
   "local": true,
+  "platforms": ["macOS", "windows", "linux"],
   "windows": ["main"],
   "permissions": [
     "core:default",
@@ -10,7 +11,6 @@
     "fs:allow-read-dir",
     "fs:allow-copy-file",
     "fs:allow-mkdir",
-    "fs:allow-remove",
     "fs:allow-remove",
     "fs:allow-rename",
     "fs:allow-exists",

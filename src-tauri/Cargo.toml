@@ -13,7 +13,6 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [ "macos-private-api"] }
 serde = { version = "1", features = ["derive"] }
-tauri-plugin-window-state = { version = "2" }
 serde_json = "1"
 tauri-plugin-notification = "2"
 tauri-plugin-http = "2"
@@ -30,6 +29,7 @@ custom-protocol = ["tauri/custom-protocol"]
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2"
+tauri-plugin-window-state = "2"
 
 [lib]
 name = "otphub_lib"
