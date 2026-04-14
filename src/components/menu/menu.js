@@ -1,4 +1,5 @@
 import { tinykeys } from './tinykeys.module.js';
+
 const { process, app } = window.__TAURI__;
 
 const appExit = () => {

@@ -1,5 +1,6 @@
-import { TOTP } from './otpauth.esm.js';
 import { adjustHue } from './color.utils.js';
+import { TOTP } from './otpauth.esm.js';
+
 const TOKEN_GRADIENT_START = '#7B8ACE';
 const TOKEN_GRADIENT_END = '#515DB0';
 const HUE_STEP = 45;

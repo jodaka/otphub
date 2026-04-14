@@ -29,6 +29,7 @@
   opacity: 1;
   transition: all 0.25s ease;
   -webkit-backdrop-filter: blur(8px) grayscale(35%) contrast(35%);
+  backdrop-filter: blur(8px) grayscale(35%) contrast(35%);
 }
 
 .dropzone__popover--active {
