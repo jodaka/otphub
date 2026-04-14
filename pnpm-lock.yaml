@@ -45,6 +45,9 @@ importers:
       oxlint:
         specifier: ^1.60.0
         version: 1.60.0
+      simple-git-hooks:
+        specifier: ^2.13.1
+        version: 2.13.1
 
 packages:
 
@@ -286,6 +289,10 @@ packages:
       oxlint-tsgolint:
         optional: true
 
+  simple-git-hooks@2.13.1:
+    resolution: {integrity: sha512-WszCLXwT4h2k1ufIXAgsbiTOazqqevFCIncOuUBZJ91DdvWcC5+OFkluWRQPrcuSYd8fjq+o2y1QfWqYMoAToQ==}
+    hasBin: true
+
 snapshots:
 
   '@oxlint/binding-android-arm-eabi@1.60.0':
@@ -451,3 +458,5 @@ snapshots:
       '@oxlint/binding-win32-arm64-msvc': 1.60.0
       '@oxlint/binding-win32-ia32-msvc': 1.60.0
       '@oxlint/binding-win32-x64-msvc': 1.60.0
+
+  simple-git-hooks@2.13.1: {}

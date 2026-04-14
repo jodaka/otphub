@@ -4,17 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "packageManager": "pnpm@10.0.0",
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint"
+  },
   "scripts": {
     "tauri": "tauri",
     "dev": "tauri dev",
     "dev:android": "tauri android dev",
     "build": "tauri build",
     "build:android": "tauri android build",
-    "lint": "oxlint check ./src"
+    "lint": "oxlint check ./src",
+    "prepare": "simple-git-hooks"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.10.0",
-    "oxlint": "^1.60.0"
+    "oxlint": "^1.60.0",
+    "simple-git-hooks": "^2.13.1"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",
