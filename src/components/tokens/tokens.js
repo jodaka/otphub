@@ -1,7 +1,7 @@
-import { Token } from './token.js';
 import { Secret } from './otpauth.esm.js';
+import { Token } from './token.js';
+
 const { writeText } = window.__TAURI__.clipboardManager;
-// import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 
 let windowIsVisible = true;
 
@@ -69,7 +69,7 @@ export const Tokens = (wrapper, tokens = []) => {
       return;
     }
 
-    console.log('toggleObserver', method);
+    // console.log('toggleObserver', method);
     wrapper
       .querySelectorAll('.token')
       .forEach((instanceDomNode) =>

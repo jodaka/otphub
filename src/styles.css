@@ -20,4 +20,19 @@ body {
   padding: 0;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+}
+
+:root {
+  border: 3px solid navy;
+  /*height: 100dvh;*/
+}
+
+html {
+  border: 1px solid red;
+}
+
+html.mobile {
+  height: 50dvh;
+  border: 1px solid green;
 }
