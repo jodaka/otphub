@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@tauri-apps/api':
-        specifier: ^2.0.0
+        specifier: ^2.10.1
         version: 2.10.1
       '@tauri-apps/plugin-clipboard-manager':
         specifier: ^2.3.2
@@ -25,7 +25,7 @@ importers:
         specifier: 2.4.10
         version: 2.4.10
       '@tauri-apps/cli':
-        specifier: ^2.10.0
+        specifier: ^2.10.1
         version: 2.10.1
       simple-git-hooks:
         specifier: ^2.13.1

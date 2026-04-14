@@ -20,11 +20,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
-    "@tauri-apps/cli": "^2.10.0",
+    "@tauri-apps/cli": "^2.10.1",
     "simple-git-hooks": "^2.13.1"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/api": "^2.10.1",
     "@tauri-apps/plugin-clipboard-manager": "^2.3.2",
     "@tauri-apps/plugin-os": "^2.3.2",
     "@tauri-apps/plugin-process": "^2.3.1"
