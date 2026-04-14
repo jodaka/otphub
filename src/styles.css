@@ -7,14 +7,16 @@
   box-sizing: border-box;
 }
 
-/*
-FIRA CODE from google
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
-*/
-
+@font-face {
+  font-family: "Fira Code VF";
+  src: url("./FiraCode-VF.woff2") format("woff2-variations");
+  /* font-weight requires a range: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide#Using_a_variable_font_font-face_changes */
+  font-weight: 300 700;
+  font-style: normal;
+}
 
 body {
-  font-family:  "Fira Code", "Arial", monospace;
+  font-family: "Fira Code VF", "Arial", monospace;
   margin: 0;
   padding: 0;
   height: 100vh;

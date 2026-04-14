@@ -4,7 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "dev:android": "tauri android dev",
+    "build": "tauri build",
+    "build:android": "tauri android build"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.10.0"
