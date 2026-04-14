@@ -1,8 +1,8 @@
-import { parser2fa } from "./parsers/2faa.js";
+import { parser2fa } from './parsers/2faa.js';
 
-const POPOVER_CLASSNAME = "dropzone__popover";
-const HOVER_CLASSNAME = "dropzone--hover";
-const POPOVER_ACTIVE_CLASSNAME = "dropzone__popover--active";
+const POPOVER_CLASSNAME = 'dropzone__popover';
+const HOVER_CLASSNAME = 'dropzone--hover';
+const POPOVER_ACTIVE_CLASSNAME = 'dropzone__popover--active';
 
 const parseFile = (file) => {
   const reader = new FileReader();
@@ -32,17 +32,19 @@ export class Dropzone {
     this.storedTokens = Array.from(storedTokens);
     this.saveTokensCallback = saveTokensCallback;
 
-    wrapper.addEventListener("dragover", (event) => this.handleDragOver(event));
-    wrapper.addEventListener("dragleave", (event) => this.handleDragLeave(event));
-    wrapper.addEventListener("drop", (event) => this.handleDragDrop(event));
+    wrapper.addEventListener('dragover', (event) => this.handleDragOver(event));
+    wrapper.addEventListener('dragleave', (event) =>
+      this.handleDragLeave(event),
+    );
+    wrapper.addEventListener('drop', (event) => this.handleDragDrop(event));
 
     this.insertPopover();
-    wrapper.classList.add("dropzone");
+    wrapper.classList.add('dropzone');
   }
 
   insertPopover() {
     const html = `<div class="${POPOVER_CLASSNAME}"><div class="dropzone__info">Drop 2FAS export file here</div></div>`;
-    this.wrapper.insertAdjacentHTML("beforeend", html);
+    this.wrapper.insertAdjacentHTML('beforeend', html);
   }
 
   handleDragOver(event) {
@@ -88,7 +90,9 @@ export class Dropzone {
     // merge tokens
     this.importedTokens.forEach((token) => {
       if (
-        this.storedTokens.findIndex((storedToken) => storedToken.secret === token.secret) === -1
+        this.storedTokens.findIndex(
+          (storedToken) => storedToken.secret === token.secret,
+        ) === -1
       ) {
         this.storedTokens.push(token);
       }
@@ -110,15 +114,19 @@ export class Dropzone {
       </div>
       `;
 
-    const cancelButton = holder.querySelector(".dropzone__button--cancel");
-    const importButton = holder.querySelector(".dropzone__button--ok");
+    const cancelButton = holder.querySelector('.dropzone__button--cancel');
+    const importButton = holder.querySelector('.dropzone__button--ok');
 
     if (this.importedTokens.length === 0) {
-      importButton.setAttribute("disabled", "disabled");
+      importButton.setAttribute('disabled', 'disabled');
     }
 
-    cancelButton.addEventListener("click", this.handleCancelImport.bind(this), { once: true });
-    importButton.addEventListener("click", this.handleImport.bind(this), { once: true });
+    cancelButton.addEventListener('click', this.handleCancelImport.bind(this), {
+      once: true,
+    });
+    importButton.addEventListener('click', this.handleImport.bind(this), {
+      once: true,
+    });
 
     this.wrapper.classList.add(HOVER_CLASSNAME);
   }

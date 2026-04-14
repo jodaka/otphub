@@ -1,5 +1,3 @@
-
-
 .menu {
   height: 28px;
   min-height: 28px;
@@ -41,7 +39,10 @@
   border-radius: 50%;
   position: relative;
   display: inline-block;
-  transition:  box-shadow 200ms ease-out, transform 200ms ease-out, opacity 200ms ease-in-out;
+  transition:
+    box-shadow 200ms ease-out,
+    transform 200ms ease-out,
+    opacity 200ms ease-in-out;
 }
 
 .menu__button--close:after {
@@ -89,7 +90,7 @@
 .menu__buttonsWrapper:hover .menu__button--close:after,
 .menu__buttonsWrapper:hover .menu__button--close:before,
 .menu__buttonsWrapper:hover .menu__button--minimize:after {
-  background-color: rgb(38,38,38);
+  background-color: rgb(38, 38, 38);
 }
 
 .menu__buttonsWrapper:hover .menu__button--close:after {

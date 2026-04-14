@@ -1,10 +1,10 @@
-import { Tokens } from "../components/tokens/tokens.js";
-import { EmptyScreen } from "../components/emptyScreen/emptyScreen.js";
-import { getStoredTokens, saveTokens } from "./storage.js";
-import { Dropzone } from "../components/dropzone/dropzone.js";
-import { Menu } from "../components/menu/menu.js";
+import { Tokens } from '../components/tokens/tokens.js';
+import { EmptyScreen } from '../components/emptyScreen/emptyScreen.js';
+import { getStoredTokens, saveTokens } from './storage.js';
+import { Dropzone } from '../components/dropzone/dropzone.js';
+import { Menu } from '../components/menu/menu.js';
 
-const wrapper = document.querySelector(".main");
+const wrapper = document.querySelector('.main');
 
 new Menu();
 

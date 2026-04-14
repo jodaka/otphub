@@ -1,7 +1,7 @@
-import { TOTP } from "./otpauth.esm.js";
-import { adjustHue } from "./color.utils.js";
-const TOKEN_GRADIENT_START = "#7B8ACE";
-const TOKEN_GRADIENT_END = "#515DB0";
+import { TOTP } from './otpauth.esm.js';
+import { adjustHue } from './color.utils.js';
+const TOKEN_GRADIENT_START = '#7B8ACE';
+const TOKEN_GRADIENT_END = '#515DB0';
 const HUE_STEP = 45;
 
 export class Token {
@@ -23,7 +23,8 @@ export class Token {
   }
 
   updateRemaining() {
-    const remaining = this.totp.period - ((Date.now() / 1000) % this.totp.period);
+    const remaining =
+      this.totp.period - ((Date.now() / 1000) % this.totp.period);
     this.remaining = Math.floor(remaining);
     return remaining;
   }
@@ -43,9 +44,15 @@ export class Token {
 
   updateCounter() {
     if (!this.counterRef || !this.tokenValueRef || !this.counterValueRef) {
-      this.counterRef = document.querySelector(`#${this.config.id} .token__remaining`);
-      this.counterValueRef = document.querySelector(`#${this.config.id} .token__remaining-value`);
-      this.tokenValueRef = document.querySelector(`#${this.config.id} .token__value`);
+      this.counterRef = document.querySelector(
+        `#${this.config.id} .token__remaining`,
+      );
+      this.counterValueRef = document.querySelector(
+        `#${this.config.id} .token__remaining-value`,
+      );
+      this.tokenValueRef = document.querySelector(
+        `#${this.config.id} .token__value`,
+      );
     }
 
     const remaining = this.updateRemaining();
@@ -81,7 +88,7 @@ export class Token {
     style="${style}">
       <div class="token__header">
         <div class="token__label">${this.config.label}</div>
-        <div class="token__issuer">${this.config.issuer || "&nbsp;"}</div>
+        <div class="token__issuer">${this.config.issuer || '&nbsp;'}</div>
       </div>
       <div class="token__value">${this.getTokenHTML()}</div>
       <div class="token__remaining" style="--value: ${this.totp.period - this.remaining};">

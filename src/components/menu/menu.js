@@ -1,4 +1,4 @@
-import { tinykeys } from "./tinykeys.module.js";
+import { tinykeys } from './tinykeys.module.js';
 const { process, app } = window.__TAURI__;
 
 const appExit = () => {
@@ -14,18 +14,18 @@ export class Menu {
   titleRef = null;
 
   constructor() {
-    this.wrapper = document.getElementById("menu");
-    this.wrapper.setAttribute("data-tauri-drag-region", true);
+    this.wrapper = document.getElementById('menu');
+    this.wrapper.setAttribute('data-tauri-drag-region', true);
 
     tinykeys(document.body, {
-      "Meta+Q": appExit,
-      "Control+Q": appExit,
+      'Meta+Q': appExit,
+      'Control+Q': appExit,
     });
 
     this.render();
 
-    this.closeButtonRef.addEventListener("click", appExit, { once: true });
-    this.minimizeButtonRef.addEventListener("click", appMinimize);
+    this.closeButtonRef.addEventListener('click', appExit, { once: true });
+    this.minimizeButtonRef.addEventListener('click', appMinimize);
   }
 
   render() {
@@ -39,9 +39,11 @@ export class Menu {
       </div>
       `;
 
-    this.titleRef = this.wrapper.querySelector(".menu__title");
-    this.closeButtonRef = this.wrapper.querySelector(".menu__button--close");
-    this.minimizeButtonRef = this.wrapper.querySelector(".menu__button--minimize");
+    this.titleRef = this.wrapper.querySelector('.menu__title');
+    this.closeButtonRef = this.wrapper.querySelector('.menu__button--close');
+    this.minimizeButtonRef = this.wrapper.querySelector(
+      '.menu__button--minimize',
+    );
   }
 
   setTitle(newTitle) {

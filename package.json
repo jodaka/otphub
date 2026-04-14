@@ -15,6 +15,7 @@
     "build:android": "tauri android build",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --write ./src",
+    "format": "biome format --write ./src",
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {

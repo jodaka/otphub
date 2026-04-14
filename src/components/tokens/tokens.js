@@ -1,5 +1,5 @@
-import { Token } from "./token.js";
-import { Secret } from "./otpauth.esm.js";
+import { Token } from './token.js';
+import { Secret } from './otpauth.esm.js';
 const { writeText } = window.__TAURI__.clipboardManager;
 // import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 
@@ -11,18 +11,18 @@ const rerenderAllTokens = (wrapper, tokens) => {
     instance.updateToken();
     acc += instance.render();
     return acc;
-  }, "");
+  }, '');
   wrapper.innerHTML = `<div class="tokens">${html}</div>`;
 };
 
 const handleTokenClick = async (e, tokenInstances) => {
-  const tokenWrapper = e.target.closest(".token");
+  const tokenWrapper = e.target.closest('.token');
   if (tokenWrapper) {
-    const index = tokenWrapper.getAttribute("index");
+    const index = tokenWrapper.getAttribute('index');
     const token = tokenInstances[index];
 
     await writeText(token.token);
-    token.tokenValueRef.innerText = "Copied";
+    token.tokenValueRef.innerText = 'Copied';
 
     setTimeout(() => {
       token.tokenValueRef.innerHTML = token.getTokenHTML();
@@ -37,10 +37,12 @@ export const Tokens = (wrapper, tokens = []) => {
     id: `id${new Secret({ size: 10 }).hex}`,
   }));
 
-  const tokenInstances = tokensWithId.map((config, index) => new Token(config, index, wrapper));
+  const tokenInstances = tokensWithId.map(
+    (config, index) => new Token(config, index, wrapper),
+  );
 
   // handle click on token
-  wrapper.addEventListener("click", (e) => {
+  wrapper.addEventListener('click', (e) => {
     handleTokenClick(e, tokenInstances);
   });
 
@@ -61,16 +63,18 @@ export const Tokens = (wrapper, tokens = []) => {
 
   let visibilityObserver;
 
-  const toggleObserver = (method = "observe") => {
+  const toggleObserver = (method = 'observe') => {
     if (!visibilityObserver) {
-      console.warn("visibilityObserver not initialized");
+      console.warn('visibilityObserver not initialized');
       return;
     }
 
-    console.log("toggleObserver", method);
+    console.log('toggleObserver', method);
     wrapper
-      .querySelectorAll(".token")
-      .forEach((instanceDomNode) => visibilityObserver[method](instanceDomNode));
+      .querySelectorAll('.token')
+      .forEach((instanceDomNode) =>
+        visibilityObserver[method](instanceDomNode),
+      );
   };
 
   const trackTokensVisibility = () => {
@@ -78,20 +82,21 @@ export const Tokens = (wrapper, tokens = []) => {
     visibilityObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const tokenInstance = tokenInstances[Number(entry.target.getAttribute("index"))];
+          const tokenInstance =
+            tokenInstances[Number(entry.target.getAttribute('index'))];
           tokenInstance.isInViewport = entry.isIntersecting;
         });
       },
       {
         root: wrapper,
-        rootMargin: "0px 0px 0px 0px",
+        rootMargin: '0px 0px 0px 0px',
         threshold: 0,
       },
     );
   };
   let initComplete = false;
 
-  document.addEventListener("visibilitychange", () => {
+  document.addEventListener('visibilitychange', () => {
     if (!initComplete) {
       return;
     }
@@ -109,7 +114,7 @@ export const Tokens = (wrapper, tokens = []) => {
   rerenderAllTokens(wrapper, tokenInstances);
   restartUpdateInterval();
   trackTokensVisibility();
-  toggleObserver("observe");
+  toggleObserver('observe');
 
   initComplete = true;
 };
