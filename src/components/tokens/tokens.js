@@ -34,7 +34,7 @@ export const Tokens = (wrapper, tokens = []) => {
   // generate uniq IDs
   const tokensWithId = tokens.map((origToken) => ({
     ...origToken,
-    id: "id" + new Secret({ size: 10 }).hex,
+    id: `id${new Secret({ size: 10 }).hex}`,
   }));
 
   const tokenInstances = tokensWithId.map((config, index) => new Token(config, index, wrapper));
