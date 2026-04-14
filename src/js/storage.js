@@ -27,7 +27,7 @@ export const getStoredTokens = () => {
         const parsed = JSON.parse(raw);
         resolve(parsed);
       }
-    } catch (err) {
+    } catch (_err) {
       resolve(DEBUG_TOKENS);
     }
   });

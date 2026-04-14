@@ -3,15 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
     "tauri": "tauri",
     "dev": "tauri dev",
     "dev:android": "tauri android dev",
     "build": "tauri build",
-    "build:android": "tauri android build"
+    "build:android": "tauri android build",
+    "lint": "oxlint check ./src"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.10.0"
+    "@tauri-apps/cli": "^2.10.0",
+    "oxlint": "^1.60.0"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",

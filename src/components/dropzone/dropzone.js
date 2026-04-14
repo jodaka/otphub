@@ -1,4 +1,3 @@
-import { saveTokens } from "../../js/storage.js";
 import { parser2fa } from "./parsers/2faa.js";
 
 const POPOVER_CLASSNAME = "dropzone__popover";
