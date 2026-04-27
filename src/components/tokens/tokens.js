@@ -107,6 +107,7 @@ export const Tokens = (wrapper, tokens = []) => {
 
       tokenInstances.forEach((instance) => {
         instance.renderToken();
+        instance.updateCounter();
       });
     }
   });

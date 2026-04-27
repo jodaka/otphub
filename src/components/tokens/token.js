@@ -26,7 +26,7 @@ export class Token {
   updateRemaining() {
     const remaining =
       this.totp.period - ((Date.now() / 1000) % this.totp.period);
-    this.remaining = Math.floor(remaining);
+    this.remaining = Math.ceil(remaining);
     return remaining;
   }
 
@@ -69,11 +69,12 @@ export class Token {
     this.counterRef.style = `--value: ${this.totp.period - remaining};`;
     this.counterValueRef.innerText = this.remaining;
 
-    // schedule token rerender
-    if (this.remaining <= 0) {
+    // schedule token rerender when countdown reaches end
+    // remaining is ceil(), so when it hits 1, we're in the last second
+    if (this.remaining <= 1) {
       setTimeout(() => {
         this.renderToken();
-      }, 500); // this timeout can't be too small, because we TOTP timeout might have not passed yet
+      }, 150); // small delay to ensure we've crossed the period boundary
     }
   }
 
