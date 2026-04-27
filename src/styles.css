@@ -2,6 +2,7 @@
 @import url("/components/emptyScreen/emptyScreen.css");
 @import url("/components/tokens/tokens.css");
 @import url("/components/menu/menu.css");
+@import url("/components/scannerButton/scannerButton.css");
 
 * {
   box-sizing: border-box;
