@@ -1,8 +1,6 @@
-@import url("/components/dropzone/dropzone.css");
-@import url("/components/emptyScreen/emptyScreen.css");
-@import url("/components/tokens/tokens.css");
-@import url("/components/menu/menu.css");
-@import url("/components/scannerButton/scannerButton.css");
+/* Common components - loaded on all platforms */
+@import url("/components/common/emptyScreen/emptyScreen.css");
+@import url("/components/common/tokens/tokens.css");
 
 * {
   box-sizing: border-box;

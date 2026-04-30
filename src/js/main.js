@@ -1,11 +1,13 @@
-import { Dropzone } from '../components/dropzone/dropzone.js';
-import { EmptyScreen } from '../components/emptyScreen/emptyScreen.js';
-import { Menu } from '../components/menu/menu.js';
-import { Tokens } from '../components/tokens/tokens.js';
-import { ScannerButton } from '../components/scannerButton/scannerButton.js';
+import { Dropzone } from '../components/desktop/dropzone/dropzone.js';
+import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
+import { Menu } from '../components/desktop/menu/menu.js';
+import { Tokens } from '../components/common/tokens/tokens.js';
+import { MobileMenu } from '../components/mobile/mobileMenu/mobileMenu.js';
 import { getStoredTokens, saveTokens } from './storage.js';
 import { registerExportHotkey } from './export.js';
 import { registerImportHotkey } from './import.js';
+
+import { isMobile, injectCSS } from './utils.js';
 
 /**
  * Main content wrapper element.
@@ -14,22 +16,10 @@ import { registerImportHotkey } from './import.js';
 const wrapper = document.querySelector('.main');
 
 /**
- * Container element for the scanner button (mobile only).
+ * Container element for the mobile menu (mobile only).
  * @type {HTMLElement}
  */
-const scannerButtonContainer = document.querySelector('.scannerButton');
-
-/**
- * Current operating system type from Tauri OS plugin.
- * @type {string}
- */
-const osType = window.__TAURI_PLUGIN_OS__.type();
-
-/**
- * Flag indicating if the app is running on a mobile platform.
- * @type {boolean}
- */
-const isMobile = osType === 'android' || osType === 'ios';
+const mobileMenuContainer = document.querySelector('.mobile-menu');
 
 /**
  * Refreshes the tokens display by clearing the wrapper and re-rendering.
@@ -50,11 +40,15 @@ const refreshTokensDisplay = () => {
   });
 };
 
-// Initialize platform-specific UI
+// Initialize platform-specific UI and load platform-specific CSS
 if (isMobile) {
   document.documentElement.classList.add('mobile');
-  new ScannerButton(scannerButtonContainer, refreshTokensDisplay);
+  injectCSS('/components/mobile/mobileMenu/mobileMenu.css');
+  injectCSS('/components/mobile/scannerButton/scannerButton.css');
+  new MobileMenu(mobileMenuContainer, refreshTokensDisplay);
 } else {
+  injectCSS('/components/desktop/menu/menu.css');
+  injectCSS('/components/desktop/dropzone/dropzone.css');
   new Menu();
 }
 

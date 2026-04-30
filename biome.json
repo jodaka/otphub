@@ -12,8 +12,8 @@
       "src/**/*.html",
       "src/**/*.css",
       "!src/js/tinykeys.module.js",
-      "!src/components/tokens/otpauth.esm.js",
-      "!src/components/tokens/color.utils.js",
+      "!src/components/common/tokens/otpauth.esm.js",
+      "!src/components/common/tokens/color.utils.js",
       "scripts/*.mjs"
     ]
   },

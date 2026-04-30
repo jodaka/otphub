@@ -72,3 +72,26 @@ export const mergeAndSaveTokens = (importedTokens, storedTokens) => {
   });
   return importCount;
 };
+
+/**
+ * Current operating system type from Tauri OS plugin.
+ * @type {string}
+ */
+export const osType = window.__TAURI_PLUGIN_OS__.type();
+
+/**
+ * Flag indicating if the app is running on a mobile platform.
+ * @type {boolean}
+ */
+export const isMobile = osType === 'android' || osType === 'ios';
+
+/**
+ * Dynamically injects a CSS file into the document head.
+ * @param {string} href - The path to the CSS file.
+ */
+export const injectCSS = (href) => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  document.head.appendChild(link);
+};
