@@ -1,32 +1,25 @@
 import { parser2fa } from './parsers/2faa.js';
+import { parseFile, mergeAndSaveTokens } from '../../js/utils.js';
+
+/**
+ * @typedef {import("../../js/types.js").Token} Token
+ */
 
 const POPOVER_CLASSNAME = 'dropzone__popover';
 const HOVER_CLASSNAME = 'dropzone--hover';
 const POPOVER_ACTIVE_CLASSNAME = 'dropzone__popover--active';
-
-const parseFile = (file) => {
-  const reader = new FileReader();
-
-  return new Promise((resolve, reject) => {
-    reader.onload = (evt) => {
-      try {
-        const json = JSON.parse(evt.target.result);
-        resolve(json);
-      } catch (error) {
-        reject(error);
-      }
-    };
-    reader.readAsText(file);
-  });
-};
 
 export class Dropzone {
   hoverClassAdded = false;
   importedTokens = [];
   storedTokens = [];
   wrapper = null;
-  saveTokensCallback = () => {};
-
+  saveTokensCallback = () => {}; /**
+   * Initialize the dropzone component.
+   * @param {HTMLElement} wrapper - The wrapper element for the dropzone.
+   * @param {Token[]} storedTokens - The stored tokens to compare against.
+   * @param {Function} saveTokensCallback - Callback to save imported tokens.
+   */
   constructor(wrapper, storedTokens, saveTokensCallback) {
     this.wrapper = wrapper;
     this.storedTokens = Array.from(storedTokens);
@@ -87,18 +80,14 @@ export class Dropzone {
   }
 
   handleImport() {
-    // merge tokens
-    this.importedTokens.forEach((token) => {
-      if (
-        this.storedTokens.findIndex(
-          (storedToken) => storedToken.secret === token.secret,
-        ) === -1
-      ) {
-        this.storedTokens.push(token);
-      }
-    });
-    this.saveTokensCallback(this.importedTokens);
-    location.reload();
+    const importsCount = mergeAndSaveTokens(
+      this.importedTokens,
+      this.storedTokens,
+    );
+    if (importsCount > 0) {
+      this.saveTokensCallback();
+      location.reload();
+    }
   }
 
   renderImportDialog() {

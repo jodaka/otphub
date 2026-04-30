@@ -54,6 +54,14 @@
     "core:app:allow-app-hide",
     "os:default",
     "clipboard-manager:default",
-    "process:default"
+    "process:default",
+    "dialog:allow-save",
+    "dialog:allow-open",
+    "fs:allow-write-text-file",
+    "fs:allow-read-text-file",
+    "fs:allow-home-write-recursive",
+    "fs:allow-home-read-recursive",
+    "fs:allow-download-write-recursive",
+    "fs:allow-download-read-recursive"
   ]
 }

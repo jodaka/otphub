@@ -11,7 +11,7 @@
       "src/**/*.js",
       "src/**/*.html",
       "src/**/*.css",
-      "!src/components/menu/tinykeys.module.js",
+      "!src/js/tinykeys.module.js",
       "!src/components/tokens/otpauth.esm.js",
       "!src/components/tokens/color.utils.js",
       "scripts/*.mjs"

@@ -71,4 +71,4 @@ function c(t, e, n) {
     }
   );
 }
-export { u as createKeybindingsHandler, a as parseKeybinding, c as tinykeys };
+export { c as tinykeys };

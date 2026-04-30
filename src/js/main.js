@@ -4,6 +4,8 @@ import { Menu } from '../components/menu/menu.js';
 import { Tokens } from '../components/tokens/tokens.js';
 import { ScannerButton } from '../components/scannerButton/scannerButton.js';
 import { getStoredTokens, saveTokens } from './storage.js';
+import { registerExportHotkey } from './export.js';
+import { registerImportHotkey } from './import.js';
 
 /**
  * Main content wrapper element.
@@ -59,7 +61,10 @@ if (isMobile) {
 // Initialize the main application
 getStoredTokens().then((tokens) => {
   if (!isMobile) {
-    new Dropzone(document.body, tokens, saveTokens);
+    const wrapper = document.body;
+    new Dropzone(wrapper, tokens, saveTokens);
+    registerExportHotkey(wrapper, tokens);
+    registerImportHotkey(wrapper, tokens, saveTokens);
   }
 
   if (tokens.length === 0) {

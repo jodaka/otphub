@@ -15,7 +15,10 @@ pub fn run() {
 
     #[cfg(desktop)]
     {
-        builder = builder.plugin(tauri_plugin_window_state::Builder::default().build());
+        builder = builder
+            .plugin(tauri_plugin_window_state::Builder::default().build())
+            .plugin(tauri_plugin_dialog::init())
+            .plugin(tauri_plugin_fs::init());
     }
 
     builder
