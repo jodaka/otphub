@@ -13,7 +13,8 @@
       "src/**/*.css",
       "!src/components/menu/tinykeys.module.js",
       "!src/components/tokens/otpauth.esm.js",
-      "!src/components/tokens/color.utils.js"
+      "!src/components/tokens/color.utils.js",
+      "scripts/*.mjs"
     ]
   },
   "formatter": {
