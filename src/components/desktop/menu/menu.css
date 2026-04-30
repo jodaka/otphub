@@ -1,0 +1,116 @@
+.menu {
+  height: 28px;
+  min-height: 28px;
+  margin: 0 10px;
+  background-color: white;
+  border-radius: 8px;
+  opacity: 0.3;
+  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    cursor: move;
+    transition: opacity 0.25s ease;
+    opacity: 1;
+  }
+
+  --btn-color: #888;
+  --btn-color--hover: rgb(137, 137, 137);
+  --btn-size: 14px;
+  --btn-x-size: 9px;
+}
+
+.menu__buttonsWrapper {
+  height: 100%;
+  padding: 0 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+}
+
+.menu__button {
+  width: var(--btn-size);
+  height: var(--btn-size);
+  box-shadow: 0px 0px 0px var(--btn-size) var(--btn-color--hover) inset;
+  border: 1px solid var(--btn-color);
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  transition:
+    box-shadow 200ms ease-out,
+    transform 200ms ease-out,
+    opacity 200ms ease-in-out;
+}
+
+.menu__button--close:after {
+  width: var(--btn-x-size);
+  height: 1.5px;
+  background-color: var(--btn-color);
+  content: "";
+  left: 50%;
+  top: 50%;
+  margin-left: -4.5px;
+  margin-top: -1px;
+  position: absolute;
+  transform: rotate(-45deg);
+  transition: 200ms linear;
+}
+
+.menu__button--close:before {
+  left: 50%;
+  top: 50%;
+  margin-left: -4.5px;
+  margin-top: -1px;
+  width: var(--btn-x-size);
+  height: 1.5px;
+  background-color: var(--btn-color);
+  content: "";
+  position: absolute;
+  transform: rotate(45deg);
+  transition: 200ms linear;
+}
+
+.menu__button--minimize:after {
+  width: var(--btn-x-size);
+  height: 1.5px;
+  background-color: var(--btn-color);
+  content: "";
+  left: 50%;
+  top: 50%;
+  margin-left: -4.5px;
+  margin-top: -1px;
+  position: absolute;
+  transform: rotate(0deg);
+  transition: 200ms linear;
+}
+
+.menu__buttonsWrapper:hover .menu__button--close:after,
+.menu__buttonsWrapper:hover .menu__button--close:before,
+.menu__buttonsWrapper:hover .menu__button--minimize:after {
+  background-color: rgb(38, 38, 38);
+}
+
+.menu__buttonsWrapper:hover .menu__button--close:after {
+  transform: rotate(-45deg);
+}
+
+.menu__buttonsWrapper:hover .menu__button--close:before {
+  transform: rotate(45deg);
+}
+
+.menu__title {
+  padding-right: 30px;
+  align-items: center;
+  display: flex;
+}
+
+.menu__logo {
+  height: 18px;
+  path {
+    fill: red;
+    stroke: green;
+  }
+}

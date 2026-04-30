@@ -1,6 +1,5 @@
 /* Common components - loaded on all platforms */
-@import url("/components/common/emptyScreen/emptyScreen.css");
-@import url("/components/common/tokens/tokens.css");
+@import url("/components/common/common.css");
 
 * {
   box-sizing: border-box;
