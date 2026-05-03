@@ -1,4 +1,4 @@
-import { tinykeys } from '../../js/tinykeys.module.js';
+import { tinykeys } from '../../../js/tinykeys.module.js';
 
 const { process, app } = window.__TAURI__;
 

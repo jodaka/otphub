@@ -1,7 +1,12 @@
+import * as stub from './stub.js';
 import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
 import { Tokens } from '../components/common/tokens/tokens.js';
 import { getStoredTokens, saveTokens } from './storage.js';
 import { isMobile, injectCSS } from './utils.js';
+
+/**
+ * @typedef {import("../../js/types.js").Token} Token
+ */
 
 /**
  * Main content wrapper element.

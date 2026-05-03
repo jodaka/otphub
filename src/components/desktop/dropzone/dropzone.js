@@ -1,5 +1,5 @@
 import { parser2fa } from './parsers/2faa.js';
-import { parseFile, mergeAndSaveTokens } from '../../js/utils.js';
+import { parseFile, mergeAndSaveTokens } from '../../../js/utils.js';
 
 /**
  * @typedef {import("../../js/types.js").Token} Token
