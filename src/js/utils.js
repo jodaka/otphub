@@ -25,28 +25,6 @@ export const isValidToken = (token) => {
 };
 
 /**
- * Parses a JSON file and returns the parsed content.
- *
- * @param {File} file - The file to parse
- * @returns {Promise<any>} A promise that resolves to the parsed JSON
- */
-export const parseFile = (file) => {
-  const reader = new FileReader();
-
-  return new Promise((resolve, reject) => {
-    reader.onload = (evt) => {
-      try {
-        const json = JSON.parse(evt.target.result);
-        resolve(json);
-      } catch (error) {
-        reject(error);
-      }
-    };
-    reader.readAsText(file);
-  });
-};
-
-/**
  * Merges imported tokens into stored tokens, skipping duplicates and invalid tokens.
  * Calls the save callback with the newly imported tokens.
  *

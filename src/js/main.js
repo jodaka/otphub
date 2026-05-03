@@ -5,7 +5,7 @@ import { getStoredTokens, saveTokens } from './storage.js';
 import { isMobile, injectCSS } from './utils.js';
 
 /**
- * @typedef {import("../../js/types.js").Token} Token
+ * @typedef {import("./types.js").Token} Token
  */
 
 /**
