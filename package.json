@@ -1,7 +1,7 @@
 {
   "name": "otphub",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "packageManager": "pnpm@10.0.0",
   "simple-git-hooks": {
@@ -12,7 +12,9 @@
     "dev": "tauri dev",
     "dev:android": "tauri android dev",
     "bump-version": "node scripts/bump-version.mjs",
-    "build": "pnpm bump-version && tauri build",
+    "release": "pnpm bump-version && tauri build",
+    "release:android": "pnpm bump-version && tauri android build",
+    "build": "tauri build",
     "build:android": "pnpm bump-version && tauri android build",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --write ./src",
