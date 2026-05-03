@@ -62,6 +62,7 @@
     "fs:allow-home-write-recursive",
     "fs:allow-home-read-recursive",
     "fs:allow-download-write-recursive",
-    "fs:allow-download-read-recursive"
+    "fs:allow-download-read-recursive",
+    "mcp-bridge:default"
   ]
 }

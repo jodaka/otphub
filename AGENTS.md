@@ -14,10 +14,12 @@ OTPHub is a simple TOTP (Time-based One-Time Password) code generator applicatio
 - **Entry:** `src/index.html`
 - **Main:** `src/js/main.js` - App initialization with platform detection
 - **Components:**
-  - `src/components/tokens/` - Token display and TOTP generation
-  - `src/components/menu/` - Window controls (macOS-style, disabled on mobile)
-  - `src/components/dropzone/` - File import for 2FAS exports (disabled on mobile)
-  - `src/components/emptyScreen/` - Empty state UI
+  - `src/components/common/tokens/` - Token display and TOTP generation
+  - `src/components/desktop/menu/` - Window controls (macOS-style, disabled on mobile)
+  - `src/components/desktop/dropzone/` - File import for 2FAS exports (disabled on mobile)
+  - `src/components/common/emptyScreen/` - Empty state UI
+  - `src/components/mobile/mobileMenu/` - a settings/menu UI for mobile
+  - `src/components/mobile/scannerButton/` - a dedicated button that fires camera for QR codes reading
 - **Libraries:**
   - `otpauth.esm.js` - TOTP/HOTP generation (bundled)
   - `tinykeys.module.js` - Keyboard shortcuts
@@ -142,6 +144,8 @@ Tauri v2 uses capability files instead of the v1 allowlist:
 
 ## Platform-Specific Behavior
 
+All UI components under ./components are devided between mobile and desktop (that's true for both CSS and JS). In ./js/main.js we load only necessary CSS/JS for the current platform. 
+
 ### Desktop
 - Frameless transparent window
 - Custom traffic light buttons (close/minimize)
@@ -155,19 +159,9 @@ Tauri v2 uses capability files instead of the v1 allowlist:
 - Dropzone disabled (drag-drop not applicable)
 - Viewport meta tag for proper scaling
 
-## Token Format
+## Types
 
-```javascript
-{
-  label: "Account Name",
-  issuer: "Service Name",
-  algorithm: "SHA1",
-  digits: 6,
-  period: 30,
-  secret: "BASE32SECRET",
-  tokenType: "TOTP"
-}
-```
+JSDoc should be used everywhere. Types that are used in more than one place should be place info ./js/types.js
 
 ## Build Commands
 
@@ -185,7 +179,7 @@ pnpm build
 pnpm build:android
 
 # Lint & Format
-pnpm lint
+pnpm lint:fix
 pnpm format
 ```
 
@@ -251,3 +245,4 @@ The recommended approach for QR code scanning is the **official Tauri barcode-sc
 - Store sensitive data (secrets) in secure storage for production
 - Use CSS custom properties for theming
 - Add `mobile` class to root element for mobile-specific CSS
+- all JS/HTML/CSS files should be linted and formatted with biome
