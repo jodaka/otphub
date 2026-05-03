@@ -1,4 +1,4 @@
-import { getStoredTokens, saveTokens } from '../../js/storage.js';
+import { getStoredTokens, saveTokens } from '../../../js/storage.js';
 
 /**
  * Parse an otpauth:// URI and extract token data
@@ -70,43 +70,35 @@ export class ScannerButton {
   constructor(container, onTokenAdded) {
     this.container = container;
     this.onTokenAdded = onTokenAdded;
-    this.render();
     this.attachEvents();
   }
 
-  render() {
-    this.container.innerHTML = `
-      <button class="scanner-button" aria-label="Scan QR code">
-        📷
-      </button>
-    `;
-    this.button = this.container.querySelector('.scanner-button');
-  }
-
   attachEvents() {
-    this.button.addEventListener('click', () => this.handleScan());
+    this.container.addEventListener('click', () => this.handleScan());
   }
 
   async handleScan() {
     try {
-      // Access Tauri barcode scanner via global API
       const barcodeScanner = window.__TAURI__.barcodeScanner;
-      if (!barcodeScanner) {
-        alert('Barcode scanner plugin not available');
-        return;
+
+      let permission = await window.__TAURI__.barcodeScanner.checkPermissions();
+      if (permission === 'prompt') {
+        permission = await window.__TAURI__.barcodeScanner.requestPermissions();
       }
+      if (permission === 'granted') {
+        const scanned = await barcodeScanner.scan({
+          windowed: false,
+          formats: [barcodeScanner.Format.QRCode],
+        });
 
-      const result = await barcodeScanner.scan({
-        windowed: false,
-        formats: [barcodeScanner.Format.QRCode],
-      });
-
-      if (result?.content) {
-        await this.processScannedData(result.content);
+        if (scanned?.content) {
+          await this.processScannedData(scanned.content);
+        }
+      } else {
+        console.error('Permission denied to use the camera');
       }
     } catch (error) {
-      // User cancelled or scan failed
-      console.log('Scan cancelled or failed:', error);
+      console.error('Scan cancelled or failed:', error);
     }
   }
 
@@ -120,10 +112,8 @@ export class ScannerButton {
       return;
     }
 
-    // Get existing tokens
     const existingTokens = await getStoredTokens();
 
-    // Check for duplicates
     const existingIndex = findTokenIndex(existingTokens, token.secret);
     if (existingIndex !== -1) {
       const existingToken = existingTokens[existingIndex];
@@ -133,17 +123,13 @@ export class ScannerButton {
       if (!confirmOverwrite) {
         return;
       }
-      // Replace existing token
       existingTokens[existingIndex] = token;
     } else {
-      // Add new token
       existingTokens.push(token);
     }
 
-    // Save to storage
     saveTokens(existingTokens);
 
-    // Call refresh callback
     if (this.onTokenAdded) {
       this.onTokenAdded();
     }

@@ -1,13 +1,11 @@
 import { tinykeys } from '../../../js/tinykeys.module.js';
 
-const { process, app } = window.__TAURI__;
-
 const appExit = () => {
-  process.exit();
+  window.__TAURI__.process.exit();
 };
 
 const appMinimize = () => {
-  app.hide();
+  window.__TAURI__.app.hide();
 };
 
 export class Menu {

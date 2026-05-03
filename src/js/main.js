@@ -1,3 +1,4 @@
+/* biome-ignore  lint/correctness/noUnusedImports: stub */
 import * as stub from './stub.js';
 import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
 import { Tokens } from '../components/common/tokens/tokens.js';
@@ -13,12 +14,6 @@ import { isMobile, injectCSS } from './utils.js';
  * @type {HTMLElement}
  */
 const wrapper = document.querySelector('.main');
-
-/**
- * Container element for the mobile menu (mobile only).
- * @type {HTMLElement}
- */
-const mobileMenuContainer = document.querySelector('.mobile-menu');
 
 /**
  * Refreshes the tokens display by clearing the wrapper and re-rendering.
@@ -74,6 +69,8 @@ const initMobile = async () => {
   const { MobileMenu } = await import(
     '../components/mobile/mobileMenu/mobileMenu.js'
   );
+
+  const mobileMenuContainer = document.querySelector('.mobile-menu');
 
   injectCSS('/components/mobile/mobile.css');
   new MobileMenu(mobileMenuContainer, refreshTokensDisplay);
