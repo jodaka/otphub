@@ -1,7 +1,7 @@
-import { parseTokensFromJson, executeTokenImport } from '../../js/importTokens.js';
+import { parseTokensFromJson, executeTokenImport } from '../../../js/importTokens.js';
 
 /**
- * @typedef {import("../../js/types.js").Token} Token
+ * @typedef {import("../../../js/types.js").Token} Token
  */
 
 /**
@@ -34,7 +34,7 @@ export const EmptyScreen = (wrapper, storedTokens, saveTokensCallback, onImportC
       filters: [
         {
           name: 'JSON Files',
-          extensions: ['json'],
+          extensions: ['json', '2fas'],
         },
       ],
     });
