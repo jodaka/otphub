@@ -6,6 +6,11 @@ import { getStoredTokens, saveTokens } from './storage.js';
 import * as stub from './stub.js';
 import { injectCSS, isMobile } from './utils.js';
 
+let isEditMode = false;
+
+/** @type {Function|null} */
+let currentCleanup = null;
+
 /**
  * @typedef {import("./types.js").Token} Token
  */
@@ -15,6 +20,10 @@ import { injectCSS, isMobile } from './utils.js';
  * @type {HTMLElement}
  */
 const wrapper = document.querySelector('.main');
+
+const getMainComponent = () => {
+  return isEditMode ? EditTokens : Tokens;
+};
 
 /**
  * Refreshes the tokens display by clearing the wrapper and re-rendering.
@@ -26,13 +35,20 @@ const refreshTokensDisplay = () => {
   getStoredTokens().then((tokens) => {
     // Clear current content
     wrapper.innerHTML = '';
-
-    if (tokens.length === 0) {
-      return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    if (currentCleanup) {
+      currentCleanup();
+      currentCleanup = null;
     }
 
-    EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
-    // Tokens(wrapper, tokens);
+    if (tokens.length === 0) {
+      EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
+      return;
+    }
+
+    const result = getMainComponent()(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    if (typeof result === 'function') {
+      currentCleanup = result;
+    }
   });
 };
 
@@ -71,6 +87,19 @@ const initMobile = async () => {
   new MobileMenu(mobileMenuContainer, refreshTokensDisplay);
 };
 
+const initModeSwitcher = () => {
+  const editModeSwitch = document.getElementById('edit-mode-switch');
+  editModeSwitch.addEventListener('change', () => {
+    isEditMode = editModeSwitch.checked;
+    if (currentCleanup) {
+      currentCleanup();
+      currentCleanup = null;
+    }
+    wrapper.innerHTML = '';
+    refreshTokensDisplay();
+  });
+};
+
 // Initialize the application
 const initApp = async () => {
   const tokens = await getStoredTokens();
@@ -82,13 +111,18 @@ const initApp = async () => {
     await initDesktop(tokens);
   }
 
+  initModeSwitcher();
+
   // Render tokens or empty screen (common for both platforms)
   if (tokens.length === 0) {
-    return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    return;
   }
 
-  // Tokens(wrapper, tokens);
-  EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
+  const result = getMainComponent()(wrapper, tokens, saveTokens, refreshTokensDisplay);
+  if (typeof result === 'function') {
+    currentCleanup = result;
+  }
 };
 
 initApp();

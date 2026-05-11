@@ -31,6 +31,8 @@ const handleTokenClick = async (e, tokenInstances) => {
 };
 
 export const Tokens = (wrapper, tokens = []) => {
+  const abortController = new AbortController();
+
   // generate uniq IDs
   const tokensWithId = tokens.map((origToken) => ({
     ...origToken,
@@ -40,9 +42,13 @@ export const Tokens = (wrapper, tokens = []) => {
   const tokenInstances = tokensWithId.map((config, index) => new Token(config, index, wrapper));
 
   // handle click on token
-  wrapper.addEventListener('click', (e) => {
-    handleTokenClick(e, tokenInstances);
-  });
+  wrapper.addEventListener(
+    'click',
+    (e) => {
+      handleTokenClick(e, tokenInstances);
+    },
+    { signal: abortController.signal },
+  );
 
   let updateInterval;
   const restartUpdateInterval = () => {
@@ -89,21 +95,25 @@ export const Tokens = (wrapper, tokens = []) => {
   };
   let initComplete = false;
 
-  document.addEventListener('visibilitychange', () => {
-    if (!initComplete) {
-      return;
-    }
-    if (document.hidden) {
-      windowIsVisible = false;
-    } else {
-      windowIsVisible = true;
+  document.addEventListener(
+    'visibilitychange',
+    () => {
+      if (!initComplete) {
+        return;
+      }
+      if (document.hidden) {
+        windowIsVisible = false;
+      } else {
+        windowIsVisible = true;
 
-      tokenInstances.forEach((instance) => {
-        instance.renderToken();
-        instance.updateCounter();
-      });
-    }
-  });
+        tokenInstances.forEach((instance) => {
+          instance.renderToken();
+          instance.updateCounter();
+        });
+      }
+    },
+    { signal: abortController.signal },
+  );
 
   rerenderAllTokens(wrapper, tokenInstances);
   restartUpdateInterval();
@@ -111,4 +121,14 @@ export const Tokens = (wrapper, tokens = []) => {
   toggleObserver('observe');
 
   initComplete = true;
+
+  return () => {
+    abortController.abort();
+    if (updateInterval) {
+      clearInterval(updateInterval);
+    }
+    if (visibilityObserver) {
+      visibilityObserver.disconnect();
+    }
+  };
 };
