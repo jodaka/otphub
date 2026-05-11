@@ -1,5 +1,8 @@
-import { parser2fa } from './parsers/2faa.js';
-import { parseFile, mergeAndSaveTokens } from '../../../js/utils.js';
+import { parseFile } from '../../../js/utils.js';
+import {
+  parseTokensFromJson,
+  executeTokenImport,
+} from '../../../js/importTokens.js';
 
 /**
  * @typedef {import("../../js/types.js").Token} Token
@@ -7,23 +10,26 @@ import { parseFile, mergeAndSaveTokens } from '../../../js/utils.js';
 
 const POPOVER_CLASSNAME = 'dropzone__popover';
 const HOVER_CLASSNAME = 'dropzone--hover';
-const POPOVER_ACTIVE_CLASSNAME = 'dropzone__popover--active';
 
 export class Dropzone {
   hoverClassAdded = false;
-  importedTokens = [];
   storedTokens = [];
   wrapper = null;
-  saveTokensCallback = () => {}; /**
+  saveTokensCallback = () => {};
+  onComplete = () => {};
+
+  /**
    * Initialize the dropzone component.
    * @param {HTMLElement} wrapper - The wrapper element for the dropzone.
    * @param {Token[]} storedTokens - The stored tokens to compare against.
    * @param {Function} saveTokensCallback - Callback to save imported tokens.
+   * @param {Function} onComplete - Callback after successful import.
    */
-  constructor(wrapper, storedTokens, saveTokensCallback) {
+  constructor(wrapper, storedTokens, saveTokensCallback, onComplete) {
     this.wrapper = wrapper;
     this.storedTokens = Array.from(storedTokens);
     this.saveTokensCallback = saveTokensCallback;
+    this.onComplete = onComplete;
 
     wrapper.addEventListener('dragover', (event) => this.handleDragOver(event));
     wrapper.addEventListener('dragleave', (event) =>
@@ -74,60 +80,29 @@ export class Dropzone {
     }
   }
 
-  handleCancelImport() {
-    this.wrapper.classList.remove(HOVER_CLASSNAME);
-    this.importedTokens = [];
-  }
-
-  handleImport() {
-    const importsCount = mergeAndSaveTokens(
-      this.importedTokens,
-      this.storedTokens,
+  async confirmImport(importedTokens) {
+    const { ask } = window.__TAURI__.dialog;
+    const confirmed = await ask(
+      `Found ${importedTokens.length} accounts. Do you want to import them?`,
+      { title: 'Import Tokens', type: 'info' },
     );
-    if (importsCount > 0) {
-      this.saveTokensCallback();
-      location.reload();
+
+    if (confirmed) {
+      executeTokenImport(
+        importedTokens,
+        this.storedTokens,
+        this.saveTokensCallback,
+        this.onComplete,
+      );
     }
-  }
-
-  renderImportDialog() {
-    const holder = this.wrapper.querySelector(`.${POPOVER_CLASSNAME}`);
-    holder.classList.add(POPOVER_ACTIVE_CLASSNAME);
-
-    holder.innerHTML = `
-      <div class="dropzone__info">Found ${this.importedTokens.length} accounts<br />
-      Do you want to import them?</div>
-      <div class="dropzone__buttons">
-        <button class="dropzone__button dropzone__button--cancel">Cancel</button>
-        <button class="dropzone__button dropzone__button--ok">Import</button>
-      </div>
-      `;
-
-    const cancelButton = holder.querySelector('.dropzone__button--cancel');
-    const importButton = holder.querySelector('.dropzone__button--ok');
-
-    if (this.importedTokens.length === 0) {
-      importButton.setAttribute('disabled', 'disabled');
-    }
-
-    cancelButton.addEventListener('click', this.handleCancelImport.bind(this), {
-      once: true,
-    });
-    importButton.addEventListener('click', this.handleImport.bind(this), {
-      once: true,
-    });
-
-    this.wrapper.classList.add(HOVER_CLASSNAME);
   }
 
   processFile(file) {
-    parseFile(file).then((json) => {
-      const tokens = parser2fa(json);
+    parseFile(file).then(async (json) => {
+      const tokens = parseTokensFromJson(json);
 
       if (tokens.length) {
-        this.importedTokens = tokens;
-
-        this.renderImportDialog();
+        await this.confirmImport(tokens);
       }
     });
   }

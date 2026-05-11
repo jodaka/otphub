@@ -1,11 +1,9 @@
 /**
+ * @typedef {import("@tauri-apps/plugin-store").Store} Store
  * @typedef {import("./types.js").Token} Token
  */
 
-/**
- * Debug tokens used when no tokens are stored in localStorage.
- * @type {Token[]}
- */
+// biome-ignore lint/correctness/noUnusedVariables: debug only
 const DEBUG_TOKENS = [
   {
     label: 'test acc1',
@@ -26,33 +24,46 @@ const DEBUG_TOKENS = [
 ];
 
 /**
- * Retrieves stored tokens from localStorage.
- * Returns DEBUG_TOKENS if no tokens are stored or if parsing fails.
- *
- * @returns {Promise<Token[]>} A promise that resolves to an array of tokens
+ * Singleton store instance for token persistence.
+ * @type {Store|null}
  */
-export const getStoredTokens = () => {
-  return new Promise((resolve) => {
-    const raw = window.localStorage.getItem('tokens');
-    try {
-      if (!raw) {
-        resolve(DEBUG_TOKENS);
-      } else {
-        const parsed = JSON.parse(raw);
-        resolve(parsed);
-      }
-    } catch (_err) {
-      resolve(DEBUG_TOKENS);
-    }
-  });
+let store = null;
+
+/**
+ * Initializes and returns the store instance.
+ * @returns {Promise<Store>}
+ */
+const getStore = async () => {
+  if (store) {
+    return store;
+  }
+
+  const { Store } = window.__TAURI_PLUGIN_STORE__;
+  store = await Store.load('tokens.json');
+  return store;
 };
 
 /**
- * Saves tokens to localStorage.
+ * Retrieves stored tokens from the Tauri store.
+ * Returns an empty array if no tokens are stored.
+ *
+ * @returns {Promise<Token[]>} A promise that resolves to an array of tokens
+ */
+export const getStoredTokens = async () => {
+  const s = await getStore();
+  const tokens = await s.get('tokens');
+  return tokens ?? [];
+  // return tokens ?? DEBUG_TOKENS;
+};
+
+/**
+ * Saves tokens to the Tauri store.
  *
  * @param {Token[]} tokens - Array of token objects to save
- * @returns {void}
+ * @returns {Promise<void>}
  */
-export const saveTokens = (tokens) => {
-  return window.localStorage.setItem('tokens', JSON.stringify(tokens));
+export const saveTokens = async (tokens) => {
+  const s = await getStore();
+  await s.set('tokens', tokens);
+  await s.save();
 };

@@ -21,6 +21,7 @@ tauri-plugin-barcode-scanner = "2"
 tauri-plugin-dialog = "2"
 tauri-plugin-fs = "2"
 tauri-plugin-mcp-bridge = "0.10"
+tauri-plugin-store = "2"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

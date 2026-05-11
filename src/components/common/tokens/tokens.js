@@ -37,9 +37,7 @@ export const Tokens = (wrapper, tokens = []) => {
     id: `id${new Secret({ size: 10 }).hex}`,
   }));
 
-  const tokenInstances = tokensWithId.map(
-    (config, index) => new Token(config, index, wrapper),
-  );
+  const tokenInstances = tokensWithId.map((config, index) => new Token(config, index, wrapper));
 
   // handle click on token
   wrapper.addEventListener('click', (e) => {
@@ -70,11 +68,7 @@ export const Tokens = (wrapper, tokens = []) => {
     }
 
     // console.log('toggleObserver', method);
-    wrapper
-      .querySelectorAll('.token')
-      .forEach((instanceDomNode) =>
-        visibilityObserver[method](instanceDomNode),
-      );
+    wrapper.querySelectorAll('.token').forEach((instanceDomNode) => visibilityObserver[method](instanceDomNode));
   };
 
   const trackTokensVisibility = () => {
@@ -82,8 +76,7 @@ export const Tokens = (wrapper, tokens = []) => {
     visibilityObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const tokenInstance =
-            tokenInstances[Number(entry.target.getAttribute('index'))];
+          const tokenInstance = tokenInstances[Number(entry.target.getAttribute('index'))];
           tokenInstance.isInViewport = entry.isIntersecting;
         });
       },

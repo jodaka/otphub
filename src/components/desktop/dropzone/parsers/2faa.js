@@ -1,9 +1,5 @@
 export const parser2fa = (json) => {
-  if (
-    json?.schemaVersion === 4 &&
-    json?.appVersionCode &&
-    json?.services?.length
-  ) {
+  if (json?.schemaVersion === 4 && json?.appVersionCode && json?.services?.length) {
     return json?.services.map((srv) => {
       return {
         label: srv.name,

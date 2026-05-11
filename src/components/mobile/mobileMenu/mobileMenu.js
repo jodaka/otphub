@@ -47,10 +47,7 @@ export class MobileMenu {
     this.panel = this.container.querySelector('.mobile-menu__panel');
     this.scannerContainer = this.container.querySelector('.scannerButton');
 
-    this.scannerButton = new ScannerButton(
-      this.scannerContainer,
-      this.refreshTokensCallback,
-    );
+    this.scannerButton = new ScannerButton(this.scannerContainer, this.refreshTokensCallback);
   }
 
   attachEvents() {

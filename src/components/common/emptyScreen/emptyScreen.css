@@ -1,5 +1,39 @@
-.emptyScreen__logo {
-  width: 50%;
-  background-color: black;
-  margin: 0 auto;
+.emptyScreen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  cursor: default;
+  overflow-x: hidden;
+
+  margin: 15px;
+  gap: 0 0.6rem;
+
+  height: 113px;
+  width: calc(100% - 30px);
+  padding: 1rem;
+
+  background: linear-gradient(176deg, blue 0%, navy 100%);
+  box-shadow: rgba(50, 50, 50, 0.3) 0px 0px 5px 2px;
+  border-radius: 20px;
+
+  color: white;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.emptyScreen__hint,
+.emptyScreen__hint--small {
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.emptyScreen__hint--small {
+  font-size: 0.8rem;
+  opacity: 0.8;
 }

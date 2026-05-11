@@ -26,11 +26,7 @@
   width: 100%;
   padding: 1rem;
 
-  background: linear-gradient(
-    176deg,
-    var(--bg-gradient-start) 0%,
-    var(--bg-gradient-end) 100%
-  );
+  background: linear-gradient(176deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
   box-shadow: rgba(50, 50, 50, 0.3) 0px 0px 5px 2px;
   border-radius: 20px;
 
@@ -106,10 +102,7 @@
   border-radius: inherit;
 
   --degree: calc(360deg / var(--period) * (var(--period) - var(--value, 0)));
-  background-image: conic-gradient(
-    var(--accent) var(--degree),
-    transparent calc(var(--degree) + 0.1deg)
-  );
+  background-image: conic-gradient(var(--accent) var(--degree), transparent calc(var(--degree) + 0.1deg));
 
   --border-size: 6px;
   --mask-image: radial-gradient(

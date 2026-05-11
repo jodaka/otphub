@@ -24,8 +24,7 @@ export class Token {
   }
 
   updateRemaining() {
-    const remaining =
-      this.totp.period - ((Date.now() / 1000) % this.totp.period);
+    const remaining = this.totp.period - ((Date.now() / 1000) % this.totp.period);
     this.remaining = Math.ceil(remaining);
     return remaining;
   }
@@ -45,15 +44,9 @@ export class Token {
 
   updateCounter() {
     if (!this.counterRef || !this.tokenValueRef || !this.counterValueRef) {
-      this.counterRef = document.querySelector(
-        `#${this.config.id} .token__remaining`,
-      );
-      this.counterValueRef = document.querySelector(
-        `#${this.config.id} .token__remaining-value`,
-      );
-      this.tokenValueRef = document.querySelector(
-        `#${this.config.id} .token__value`,
-      );
+      this.counterRef = document.querySelector(`#${this.config.id} .token__remaining`);
+      this.counterValueRef = document.querySelector(`#${this.config.id} .token__remaining-value`);
+      this.tokenValueRef = document.querySelector(`#${this.config.id} .token__value`);
     }
 
     const remaining = this.updateRemaining();

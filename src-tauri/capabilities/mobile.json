@@ -21,7 +21,12 @@
     "barcode-scanner:default",
     "barcode-scanner:allow-scan",
     "barcode-scanner:allow-cancel",
+    "dialog:allow-message",
+    "dialog:allow-ask",
+    "dialog:allow-open",
+    "fs:allow-read-text-file",
     "mcp-bridge:default",
-    "core:event:default"
+    "core:event:default",
+    "store:default"
   ]
 }

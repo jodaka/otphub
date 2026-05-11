@@ -37,9 +37,7 @@ export const importTokensFromFile = async (storedTokens) => {
     const json = JSON.parse(content);
 
     // Handle both direct array and nested format (like 2FAS export)
-    const importedTokens = Array.isArray(json)
-      ? json
-      : json.tokens || json.data || [];
+    const importedTokens = Array.isArray(json) ? json : json.tokens || json.data || [];
 
     const importCount = mergeAndSaveTokens(importedTokens, storedTokens);
     return importCount;
@@ -58,11 +56,7 @@ export const importTokensFromFile = async (storedTokens) => {
  * @param {Token[]} storedTokens - The existing stored tokens
  * @param {Function} saveTokensCallback - Callback to save tokens
  */
-export const registerImportHotkey = (
-  wrapper,
-  storedTokens,
-  saveTokensCallback,
-) => {
+export const registerImportHotkey = (wrapper, storedTokens, saveTokensCallback) => {
   const handleImport = async () => {
     const importCount = await importTokensFromFile(storedTokens);
     if (importCount > 0) {

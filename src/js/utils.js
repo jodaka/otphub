@@ -3,6 +3,17 @@
  */
 
 /**
+ * Reads a dropped File object as text and parses it as JSON.
+ *
+ * @param {File} file - The file to parse
+ * @returns {Promise<*>} The parsed JSON content
+ */
+export const parseFile = async (file) => {
+  const text = await file.text();
+  return JSON.parse(text);
+};
+
+/**
  * Validates that an object conforms to the Token type.
  * Checks for the presence and types of required properties.
  *
@@ -39,11 +50,7 @@ export const mergeAndSaveTokens = (importedTokens, storedTokens) => {
     if (!isValidToken(token)) {
       return;
     }
-    if (
-      storedTokens.findIndex(
-        (storedToken) => storedToken.secret === token.secret,
-      ) === -1
-    ) {
+    if (storedTokens.findIndex((storedToken) => storedToken.secret === token.secret) === -1) {
       storedTokens.push(token);
       importCount++;
     }

@@ -27,7 +27,7 @@ const refreshTokensDisplay = () => {
     wrapper.innerHTML = '';
 
     if (tokens.length === 0) {
-      return EmptyScreen(wrapper);
+      return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
     }
 
     Tokens(wrapper, tokens);
@@ -39,12 +39,7 @@ const refreshTokensDisplay = () => {
  * @param {Token[]} tokens - The stored tokens.
  */
 const initDesktop = async (tokens) => {
-  const [
-    { Dropzone },
-    { Menu },
-    { registerExportHotkey },
-    { registerImportHotkey },
-  ] = await Promise.all([
+  const [{ Dropzone }, { Menu }, { registerExportHotkey }, { registerImportHotkey }] = await Promise.all([
     import('../components/desktop/dropzone/dropzone.js'),
     import('../components/desktop/menu/menu.js'),
     import('./export.js'),
@@ -55,7 +50,7 @@ const initDesktop = async (tokens) => {
   new Menu();
 
   const bodyWrapper = document.body;
-  new Dropzone(bodyWrapper, tokens, saveTokens);
+  new Dropzone(bodyWrapper, tokens, saveTokens, refreshTokensDisplay);
   registerExportHotkey(bodyWrapper, tokens);
   registerImportHotkey(bodyWrapper, tokens, saveTokens);
 };
@@ -66,9 +61,7 @@ const initDesktop = async (tokens) => {
 const initMobile = async () => {
   document.documentElement.classList.add('mobile');
 
-  const { MobileMenu } = await import(
-    '../components/mobile/mobileMenu/mobileMenu.js'
-  );
+  const { MobileMenu } = await import('../components/mobile/mobileMenu/mobileMenu.js');
 
   const mobileMenuContainer = document.querySelector('.mobile-menu');
 
@@ -79,7 +72,6 @@ const initMobile = async () => {
 // Initialize the application
 const initApp = async () => {
   const tokens = await getStoredTokens();
-
   if (isMobile) {
     // Initialize mobile UI
     await initMobile();
@@ -90,7 +82,7 @@ const initApp = async () => {
 
   // Render tokens or empty screen (common for both platforms)
   if (tokens.length === 0) {
-    return EmptyScreen(wrapper);
+    return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
   }
 
   Tokens(wrapper, tokens);

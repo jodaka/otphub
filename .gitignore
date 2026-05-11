@@ -1,6 +1,5 @@
 pnpm-debug.log*
 .pnpm-store/
-.zed
 node_modules
 
 # Editor directories and files

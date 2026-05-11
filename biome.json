@@ -19,7 +19,10 @@
   },
   "formatter": {
     "enabled": true,
-    "indentStyle": "space"
+    "indentStyle": "space",
+    "lineWidth": 120,
+    "useEditorconfig": true,
+    "formatWithErrors": true
   },
   "linter": {
     "enabled": true,

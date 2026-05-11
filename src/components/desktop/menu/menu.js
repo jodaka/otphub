@@ -40,9 +40,7 @@ export class Menu {
 
     this.titleRef = this.wrapper.querySelector('.menu__title');
     this.closeButtonRef = this.wrapper.querySelector('.menu__button--close');
-    this.minimizeButtonRef = this.wrapper.querySelector(
-      '.menu__button--minimize',
-    );
+    this.minimizeButtonRef = this.wrapper.querySelector('.menu__button--minimize');
   }
 
   setTitle(newTitle) {
