@@ -1,8 +1,5 @@
 import { parseFile } from '../../../js/utils.js';
-import {
-  parseTokensFromJson,
-  executeTokenImport,
-} from '../../../js/importTokens.js';
+import { parseTokensFromJson, executeTokenImport } from '../../../js/importTokens.js';
 
 /**
  * @typedef {import("../../js/types.js").Token} Token
@@ -32,9 +29,7 @@ export class Dropzone {
     this.onComplete = onComplete;
 
     wrapper.addEventListener('dragover', (event) => this.handleDragOver(event));
-    wrapper.addEventListener('dragleave', (event) =>
-      this.handleDragLeave(event),
-    );
+    wrapper.addEventListener('dragleave', (event) => this.handleDragLeave(event));
     wrapper.addEventListener('drop', (event) => this.handleDragDrop(event));
 
     this.insertPopover();
@@ -82,18 +77,13 @@ export class Dropzone {
 
   async confirmImport(importedTokens) {
     const { ask } = window.__TAURI__.dialog;
-    const confirmed = await ask(
-      `Found ${importedTokens.length} accounts. Do you want to import them?`,
-      { title: 'Import Tokens', type: 'info' },
-    );
+    const confirmed = await ask(`Found ${importedTokens.length} accounts. Do you want to import them?`, {
+      title: 'Import Tokens',
+      type: 'info',
+    });
 
     if (confirmed) {
-      executeTokenImport(
-        importedTokens,
-        this.storedTokens,
-        this.saveTokensCallback,
-        this.onComplete,
-      );
+      executeTokenImport(importedTokens, this.storedTokens, this.saveTokensCallback, this.onComplete);
     }
   }
 

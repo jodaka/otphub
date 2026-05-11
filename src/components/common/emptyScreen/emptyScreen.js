@@ -1,7 +1,4 @@
-import {
-  parseTokensFromJson,
-  executeTokenImport,
-} from '../../js/importTokens.js';
+import { parseTokensFromJson, executeTokenImport } from '../../js/importTokens.js';
 
 /**
  * @typedef {import("../../js/types.js").Token} Token
@@ -15,12 +12,7 @@ import {
  * @param {Function} saveTokensCallback - Callback to save imported tokens.
  * @param {Function} onImportComplete - Callback after successful import.
  */
-export const EmptyScreen = (
-  wrapper,
-  storedTokens,
-  saveTokensCallback,
-  onImportComplete,
-) => {
+export const EmptyScreen = (wrapper, storedTokens, saveTokensCallback, onImportComplete) => {
   const renderEmpty = () => {
     const html = `
     <div class="emptyScreen">
@@ -60,18 +52,13 @@ export const EmptyScreen = (
     }
 
     const { ask } = window.__TAURI__.dialog;
-    const confirmed = await ask(
-      `Found ${importedTokens.length} accounts. Do you want to import them?`,
-      { title: 'Import Tokens', type: 'info' },
-    );
+    const confirmed = await ask(`Found ${importedTokens.length} accounts. Do you want to import them?`, {
+      title: 'Import Tokens',
+      type: 'info',
+    });
 
     if (confirmed) {
-      executeTokenImport(
-        importedTokens,
-        storedTokens,
-        saveTokensCallback,
-        onImportComplete,
-      );
+      executeTokenImport(importedTokens, storedTokens, saveTokensCallback, onImportComplete);
     }
   };
 

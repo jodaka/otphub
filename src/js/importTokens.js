@@ -33,12 +33,7 @@ export const parseTokensFromJson = (json) => {
  * @param {Function} saveTokensCallback
  * @param {Function} onComplete
  */
-export const executeTokenImport = (
-  importedTokens,
-  storedTokens,
-  saveTokensCallback,
-  onComplete,
-) => {
+export const executeTokenImport = (importedTokens, storedTokens, saveTokensCallback, onComplete) => {
   const importsCount = mergeAndSaveTokens(importedTokens, storedTokens);
   if (importsCount > 0) {
     saveTokensCallback(storedTokens);
