@@ -1,3 +1,4 @@
 /* Common components styles - loaded on all platforms */
 @import url("./emptyScreen/emptyScreen.css");
 @import url("./tokens/tokens.css");
+@import url("./editTokens/editTokens.css");

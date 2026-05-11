@@ -1,9 +1,10 @@
-/* biome-ignore  lint/correctness/noUnusedImports: stub */
-import * as stub from './stub.js';
+import { EditTokens } from '../components/common/editTokens/editTokens.js';
 import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
 import { Tokens } from '../components/common/tokens/tokens.js';
 import { getStoredTokens, saveTokens } from './storage.js';
-import { isMobile, injectCSS } from './utils.js';
+/* biome-ignore  lint/correctness/noUnusedImports: stub */
+import * as stub from './stub.js';
+import { injectCSS, isMobile } from './utils.js';
 
 /**
  * @typedef {import("./types.js").Token} Token
@@ -30,7 +31,8 @@ const refreshTokensDisplay = () => {
       return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
     }
 
-    Tokens(wrapper, tokens);
+    EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    // Tokens(wrapper, tokens);
   });
 };
 
@@ -85,7 +87,8 @@ const initApp = async () => {
     return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
   }
 
-  Tokens(wrapper, tokens);
+  // Tokens(wrapper, tokens);
+  EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
 };
 
 initApp();

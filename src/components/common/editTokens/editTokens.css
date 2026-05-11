@@ -1,0 +1,22 @@
+.editToken {
+  grid-template-areas:
+    "name"
+    "controls";
+  grid-template-rows: min-content auto;
+  flex-direction: column;
+  min-height: 113px;
+}
+
+.token__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  grid-area: controls;
+}
+
+.control--delete {
+  background: rgba(220, 50, 50, 0.3);
+  border-color: rgba(255, 100, 100, 0.4);
+}

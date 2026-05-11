@@ -12,8 +12,8 @@
       "src/**/*.html",
       "src/**/*.css",
       "!src/js/tinykeys.module.js",
-      "!src/components/common/tokens/otpauth.esm.js",
-      "!src/components/common/tokens/color.utils.js",
+      "!src/js/otpauth.esm.js",
+      "!src/js/colors.js",
       "scripts/*.mjs"
     ]
   },
@@ -44,11 +44,6 @@
     "experimentalEmbeddedSnippetsEnabled": true
   },
   "assist": {
-    "enabled": true,
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
+    "enabled": true
   }
 }

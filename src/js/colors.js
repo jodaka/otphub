@@ -12,11 +12,11 @@ export function adjustHue(rgb, degree) {
 // exepcts a string and returns an object
 function rgbToHSL(rgb) {
   // strip the leading # if it's there
-  rgb = rgb.replace(/^\s*#|\s*$/g, "");
+  rgb = rgb.replace(/^\s*#|\s*$/g, '');
 
   // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
   if (rgb.length == 3) {
-    rgb = rgb.replace(/(.)/g, "$1$1");
+    rgb = rgb.replace(/(.)/g, '$1$1');
   }
 
   var r = parseInt(rgb.substr(0, 2), 16) / 255,
@@ -106,5 +106,5 @@ function normalize_rgb_value(color, m) {
 }
 
 function rgbToHex(r, g, b) {
-  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }

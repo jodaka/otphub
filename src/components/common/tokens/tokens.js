@@ -1,4 +1,4 @@
-import { Secret } from './otpauth.esm.js';
+import { getId } from '../../../../js/id.js';
 import { Token } from './token.js';
 
 const { writeText } = window.__TAURI__.clipboardManager;
@@ -34,7 +34,7 @@ export const Tokens = (wrapper, tokens = []) => {
   // generate uniq IDs
   const tokensWithId = tokens.map((origToken) => ({
     ...origToken,
-    id: `id${new Secret({ size: 10 }).hex}`,
+    id: getId(),
   }));
 
   const tokenInstances = tokensWithId.map((config, index) => new Token(config, index, wrapper));
