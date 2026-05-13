@@ -1,10 +1,11 @@
 .tokens {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   gap: 10px;
   padding: 8px;
+  flex-grow: 1;
 
   align-items: center;
   justify-content: flex-start;
@@ -102,7 +103,10 @@
   border-radius: inherit;
 
   --degree: calc(360deg / var(--period) * (var(--period) - var(--value, 0)));
-  background-image: conic-gradient(var(--accent) var(--degree), transparent calc(var(--degree) + 0.1deg));
+  background-image: conic-gradient(
+    var(--accent) var(--degree),
+    transparent calc(var(--degree) + 0.1deg)
+  );
 
   --border-size: 6px;
   --mask-image: radial-gradient(

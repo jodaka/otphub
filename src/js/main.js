@@ -1,12 +1,15 @@
 import { EditTokens } from '../components/common/editTokens/editTokens.js';
 import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
+import { Tabs } from '../components/common/tabs/tabs.js';
 import { Tokens } from '../components/common/tokens/tokens.js';
+
 import { getStoredTokens, saveTokens } from './storage.js';
 /* biome-ignore  lint/correctness/noUnusedImports: stub */
 import * as stub from './stub.js';
 import { injectCSS, isMobile } from './utils.js';
 
-let isEditMode = false;
+/** @type {'otp'|'edit'|'settings'} */
+let activeTab = 'otp';
 
 /** @type {Function|null} */
 let currentCleanup = null;
@@ -21,8 +24,20 @@ let currentCleanup = null;
  */
 const wrapper = document.querySelector('.main');
 
-const getMainComponent = () => {
-  return isEditMode ? EditTokens : Tokens;
+/**
+ * @returns {Function|null} cleanup function or nothing
+ */
+const getMainComponent = (wrapper, tokens, saveTokens, refreshTokensDisplay) => {
+  switch (activeTab) {
+    case 'otp':
+      return tokens.length === 0
+        ? EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay)
+        : Tokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    case 'edit':
+      return EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    case 'settings':
+      return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
+  }
 };
 
 /**
@@ -40,14 +55,9 @@ const refreshTokensDisplay = () => {
       currentCleanup = null;
     }
 
-    if (tokens.length === 0) {
-      EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
-      return;
-    }
-
-    const result = getMainComponent()(wrapper, tokens, saveTokens, refreshTokensDisplay);
-    if (typeof result === 'function') {
-      currentCleanup = result;
+    const cleanupFn = getMainComponent(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    if (typeof cleanupFn === 'function') {
+      currentCleanup = cleanupFn;
     }
   });
 };
@@ -87,22 +97,18 @@ const initMobile = async () => {
   new MobileMenu(mobileMenuContainer, refreshTokensDisplay);
 };
 
-const initModeSwitcher = () => {
-  const editModeSwitch = document.getElementById('edit-mode-switch');
-  editModeSwitch.addEventListener('change', () => {
-    isEditMode = editModeSwitch.checked;
-    if (currentCleanup) {
-      currentCleanup();
-      currentCleanup = null;
-    }
-    wrapper.innerHTML = '';
-    refreshTokensDisplay();
-  });
+const handleTabChange = (tab) => {
+  console.log(123, 'new tab', tab);
+  activeTab = tab;
+
+  refreshTokensDisplay();
 };
 
 // Initialize the application
 const initApp = async () => {
   const tokens = await getStoredTokens();
+  Tabs(activeTab, handleTabChange);
+
   if (isMobile) {
     // Initialize mobile UI
     await initMobile();
@@ -111,15 +117,13 @@ const initApp = async () => {
     await initDesktop(tokens);
   }
 
-  initModeSwitcher();
-
   // Render tokens or empty screen (common for both platforms)
   if (tokens.length === 0) {
     EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
     return;
   }
 
-  const result = getMainComponent()(wrapper, tokens, saveTokens, refreshTokensDisplay);
+  const result = getMainComponent(wrapper, tokens, saveTokens, refreshTokensDisplay);
   if (typeof result === 'function') {
     currentCleanup = result;
   }
