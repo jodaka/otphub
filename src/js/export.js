@@ -8,7 +8,7 @@ import { tinykeys } from './tinykeys.module.js';
  * Exports the current tokens as a JSON file using Tauri dialog and fs.
  * @param {Token[]} tokens - The tokens to export.
  */
-const exportTokensJSON = async (tokens) => {
+export const exportTokensJSON = async (tokens) => {
   const { save } = window.__TAURI__.dialog;
   const { writeTextFile } = window.__TAURI__.fs;
 

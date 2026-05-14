@@ -1,6 +1,5 @@
 import { executeTokenImport, parseTokensFromJson } from './importTokens.js';
 import { tinykeys } from './tinykeys.module.js';
-import { mergeAndSaveTokens } from './utils.js';
 
 /**
  * @typedef {import("./types.js").Token} Token

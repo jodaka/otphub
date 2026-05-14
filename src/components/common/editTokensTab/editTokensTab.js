@@ -3,7 +3,7 @@ import { EditToken } from './editToken.js';
 
 const HUE_STEP = 45;
 
-export const EditTokens = (wrapper, tokens = [], saveTokensCallback, onChangeCallback) => {
+export const EditTokensTab = (wrapper, tokens = [], saveTokensCallback, onChangeCallback) => {
   const abortController = new AbortController();
   let clickHandlerInProcess = false;
 

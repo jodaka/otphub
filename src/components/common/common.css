@@ -1,6 +1,6 @@
 /* Common components styles - loaded on all platforms */
 @import url("./tabs/tabs.css");
-@import url("./emptyScreen/emptyScreen.css");
-@import url("./tokens/tokens.css");
-@import url("./settings/settings.css");
-@import url("./editTokens/editTokens.css");
+@import url("./emptyTokensTab/emptyTokensTab.css");
+@import url("./tokensTab/tokensTab.css");
+@import url("./settingsTab/settingsTab.css");
+@import url("./editTokensTab/editTokensTab.css");

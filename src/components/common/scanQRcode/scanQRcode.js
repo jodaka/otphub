@@ -64,7 +64,7 @@ const findTokenIndex = (tokens, secret) => {
 /**
  * ScannerButton component for mobile QR code scanning
  */
-export const ScannerButton = (onTokenAdded, existingTokens, saveTokens) => {
+export const ScanQRcode = (onTokenAdded, existingTokens, saveTokens) => {
   const processScannedData = async (data) => {
     let token;
 
@@ -96,7 +96,7 @@ export const ScannerButton = (onTokenAdded, existingTokens, saveTokens) => {
     }
   };
 
-  const handleScan = async () => {
+  return async () => {
     try {
       const barcodeScanner = window.__TAURI__.barcodeScanner;
 

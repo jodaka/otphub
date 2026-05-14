@@ -1,9 +1,8 @@
-import { EditTokens } from '../components/common/editTokens/editTokens.js';
+import { EditTokensTab } from '../components/common/editTokensTab/editTokensTab.js';
 import { EmptyTokensTab } from '../components/common/emptyTokensTab/emptyTokensTab.js';
-import { Settings } from '../components/common/settings/settings.js';
+import { SettingsTab } from '../components/common/settingsTab/settingsTab.js';
 import { Tabs } from '../components/common/tabs/tabs.js';
-import { Tokens } from '../components/common/tokens/tokens.js';
-
+import { TokensTab } from '../components/common/tokensTab/tokensTab.js';
 import { getStoredTokens, saveTokens } from './storage.js';
 /* biome-ignore  lint/correctness/noUnusedImports: stub */
 import * as stub from './stub.js';
@@ -13,7 +12,7 @@ import { injectCSS, isMobile } from './utils.js';
 let activeTab = 'otp';
 
 /** @type {Function|null} */
-let currentCleanup = null;
+let tabCleanupFn = null;
 
 /**
  * @typedef {import("./types.js").Token} Token
@@ -33,11 +32,11 @@ const renderActiveTab = (wrapper, tokens, saveTokens, refreshTokensDisplay) => {
     case 'otp':
       return tokens.length === 0
         ? EmptyTokensTab(wrapper, tokens, saveTokens, refreshTokensDisplay)
-        : Tokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
+        : TokensTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
     case 'edit':
-      return EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
+      return EditTokensTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
     case 'settings':
-      return Settings(wrapper, tokens, saveTokens, refreshTokensDisplay);
+      return SettingsTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
   }
 };
 
@@ -49,16 +48,16 @@ const renderActiveTab = (wrapper, tokens, saveTokens, refreshTokensDisplay) => {
  */
 const refreshTokensDisplay = () => {
   getStoredTokens().then((tokens) => {
-    // Clear current content
     wrapper.innerHTML = '';
-    if (currentCleanup) {
-      currentCleanup();
-      currentCleanup = null;
+
+    if (tabCleanupFn) {
+      tabCleanupFn();
+      tabCleanupFn = null;
     }
 
     const cleanupFn = renderActiveTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
     if (typeof cleanupFn === 'function') {
-      currentCleanup = cleanupFn;
+      tabCleanupFn = cleanupFn;
     }
   });
 };
@@ -105,7 +104,7 @@ const initApp = async () => {
   const renderResult = renderActiveTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
 
   if (typeof renderResult === 'function') {
-    currentCleanup = renderResult;
+    tabCleanupFn = renderResult;
   }
 };
 

@@ -2,19 +2,19 @@ import { exportTokensJSON } from '../../../js/export.js';
 import { importTokensFromFile } from '../../../js/import.js';
 import { isMobile } from '../../../js/utils.js';
 
-export const Settings = (wrapper, tokens = [], saveTokensCb, refreshTokensDisplay) => {
+export const SettingsTab = (wrapper, tokens = [], saveTokensCb, refreshTokensDisplay) => {
   const abortController = new AbortController();
 
   const initScanButton = () => {
-    import('../scannerButton/scannerButton.js').then(({ ScannerButton }) => {
+    import('../scanQRcode/scanQRcode.js').then(({ ScanQRcode }) => {
       const scannerContainer = wrapper.querySelector('.scannerButton');
-      const scannerButton = ScannerButton(refreshTokensDisplay, tokens, saveTokensCb);
-      scannerContainer.addEventListener('click', () => scannerButton.handleScan(), { signal: abortController.signal });
+      const scanFn = ScanQRcode(refreshTokensDisplay, tokens, saveTokensCb);
+      scannerContainer.addEventListener('click', () => scanFn(), { signal: abortController.signal });
     });
   };
 
   const initImportButton = () => {
-    const btn = wrapper.querySelector('.scannerButton');
+    const btn = wrapper.querySelector('.importButton');
     btn.addEventListener('click', () => importTokensFromFile(tokens, saveTokensCb, refreshTokensDisplay), {
       signal: abortController.signal,
     });

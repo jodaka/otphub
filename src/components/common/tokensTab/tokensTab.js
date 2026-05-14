@@ -30,7 +30,7 @@ const handleTokenClick = async (e, tokenInstances) => {
   }
 };
 
-export const Tokens = (wrapper, tokens = []) => {
+export const TokensTab = (wrapper, tokens = []) => {
   const abortController = new AbortController();
 
   // generate uniq IDs
