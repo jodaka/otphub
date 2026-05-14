@@ -18,8 +18,7 @@ OTPHub is a simple TOTP (Time-based One-Time Password) code generator applicatio
   - `src/components/desktop/menu/` - Window controls (macOS-style, disabled on mobile)
   - `src/components/desktop/dropzone/` - File import for 2FAS exports (disabled on mobile)
   - `src/components/common/emptyScreen/` - Empty state UI
-  - `src/components/mobile/mobileMenu/` - a settings/menu UI for mobile
-  - `src/components/mobile/scannerButton/` - a dedicated button that fires camera for QR codes reading
+  - `src/components/common/scannerButton/` - a dedicated button that fires camera for QR codes reading
 - **Libraries:**
   - `otpauth.esm.js` - TOTP/HOTP generation (bundled)
   - `tinykeys.module.js` - Keyboard shortcuts

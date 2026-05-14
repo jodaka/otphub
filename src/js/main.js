@@ -1,5 +1,6 @@
 import { EditTokens } from '../components/common/editTokens/editTokens.js';
 import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
+import { Settings } from '../components/common/settings/settings.js';
 import { Tabs } from '../components/common/tabs/tabs.js';
 import { Tokens } from '../components/common/tokens/tokens.js';
 
@@ -36,7 +37,7 @@ const getMainComponent = (wrapper, tokens, saveTokens, refreshTokensDisplay) => 
     case 'edit':
       return EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
     case 'settings':
-      return EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
+      return Settings(wrapper, tokens, saveTokens, refreshTokensDisplay);
   }
 };
 
@@ -88,13 +89,6 @@ const initDesktop = async (tokens) => {
  */
 const initMobile = async () => {
   document.documentElement.classList.add('mobile');
-
-  const { MobileMenu } = await import('../components/mobile/mobileMenu/mobileMenu.js');
-
-  const mobileMenuContainer = document.querySelector('.mobile-menu');
-
-  injectCSS('/components/mobile/mobile.css');
-  new MobileMenu(mobileMenuContainer, refreshTokensDisplay);
 };
 
 const handleTabChange = (tab) => {

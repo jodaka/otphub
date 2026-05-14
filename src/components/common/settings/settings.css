@@ -1,0 +1,27 @@
+.settings__list {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+  padding: 45px 25px 0 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.settings__button {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  appearance: none;
+  background: none;
+  border: none;
+  font-size: 130%;
+}
+
+.settings__buttonIcon {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}

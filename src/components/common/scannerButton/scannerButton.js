@@ -1,5 +1,3 @@
-import { getStoredTokens, saveTokens } from '../../../js/storage.js';
-
 /**
  * Parse an otpauth:// URI and extract token data
  * @param {string} uri - The otpauth URI
@@ -66,43 +64,8 @@ const findTokenIndex = (tokens, secret) => {
 /**
  * ScannerButton component for mobile QR code scanning
  */
-export class ScannerButton {
-  constructor(container, onTokenAdded) {
-    this.container = container;
-    this.onTokenAdded = onTokenAdded;
-    this.attachEvents();
-  }
-
-  attachEvents() {
-    this.container.addEventListener('click', () => this.handleScan());
-  }
-
-  async handleScan() {
-    try {
-      const barcodeScanner = window.__TAURI__.barcodeScanner;
-
-      let permission = await window.__TAURI__.barcodeScanner.checkPermissions();
-      if (permission === 'prompt') {
-        permission = await window.__TAURI__.barcodeScanner.requestPermissions();
-      }
-      if (permission === 'granted') {
-        const scanned = await barcodeScanner.scan({
-          windowed: false,
-          formats: [barcodeScanner.Format.QRCode],
-        });
-
-        if (scanned?.content) {
-          await this.processScannedData(scanned.content);
-        }
-      } else {
-        console.error('Permission denied to use the camera');
-      }
-    } catch (error) {
-      console.error('Scan cancelled or failed:', error);
-    }
-  }
-
-  async processScannedData(data) {
+export const ScannerButton = (onTokenAdded, existingTokens, saveTokens) => {
+  const processScannedData = async (data) => {
     let token;
 
     try {
@@ -111,8 +74,6 @@ export class ScannerButton {
       alert(error.message);
       return;
     }
-
-    const existingTokens = await getStoredTokens();
 
     const existingIndex = findTokenIndex(existingTokens, token.secret);
     if (existingIndex !== -1) {
@@ -130,8 +91,33 @@ export class ScannerButton {
 
     saveTokens(existingTokens);
 
-    if (this.onTokenAdded) {
-      this.onTokenAdded();
+    if (typeof onTokenAdded === 'function') {
+      onTokenAdded();
     }
-  }
-}
+  };
+
+  const handleScan = async () => {
+    try {
+      const barcodeScanner = window.__TAURI__.barcodeScanner;
+
+      let permission = await window.__TAURI__.barcodeScanner.checkPermissions();
+      if (permission === 'prompt') {
+        permission = await window.__TAURI__.barcodeScanner.requestPermissions();
+      }
+      if (permission === 'granted') {
+        const scanned = await barcodeScanner.scan({
+          windowed: false,
+          formats: [barcodeScanner.Format.QRCode],
+        });
+
+        if (scanned?.content) {
+          await processScannedData(scanned.content);
+        }
+      } else {
+        console.error('Permission denied to use the camera');
+      }
+    } catch (error) {
+      console.error('Scan cancelled or failed:', error);
+    }
+  };
+};

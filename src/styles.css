@@ -39,3 +39,11 @@ body {
   border: 1px solid gold;
   overflow-y: auto;
 }
+
+.mobileOnly {
+  display: none;
+}
+
+.mobile .mobileOnly {
+  display: block;
+}
