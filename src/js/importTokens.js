@@ -54,6 +54,8 @@ export const executeTokenImport = (importedTokens, storedTokens, saveTokensCallb
   const importsCount = mergeAndSaveTokens(importedTokens, storedTokens);
   if (importsCount > 0) {
     saveTokensCallback(storedTokens);
-    onComplete();
+    if (typeof onComplete === 'function') {
+      onComplete();
+    }
   }
 };

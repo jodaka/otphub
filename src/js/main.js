@@ -1,5 +1,5 @@
 import { EditTokens } from '../components/common/editTokens/editTokens.js';
-import { EmptyScreen } from '../components/common/emptyScreen/emptyScreen.js';
+import { EmptyTokensTab } from '../components/common/emptyTokensTab/emptyTokensTab.js';
 import { Settings } from '../components/common/settings/settings.js';
 import { Tabs } from '../components/common/tabs/tabs.js';
 import { Tokens } from '../components/common/tokens/tokens.js';
@@ -28,11 +28,11 @@ const wrapper = document.querySelector('.main');
 /**
  * @returns {Function|null} cleanup function or nothing
  */
-const getMainComponent = (wrapper, tokens, saveTokens, refreshTokensDisplay) => {
+const renderActiveTab = (wrapper, tokens, saveTokens, refreshTokensDisplay) => {
   switch (activeTab) {
     case 'otp':
       return tokens.length === 0
-        ? EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay)
+        ? EmptyTokensTab(wrapper, tokens, saveTokens, refreshTokensDisplay)
         : Tokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
     case 'edit':
       return EditTokens(wrapper, tokens, saveTokens, refreshTokensDisplay);
@@ -56,7 +56,7 @@ const refreshTokensDisplay = () => {
       currentCleanup = null;
     }
 
-    const cleanupFn = getMainComponent(wrapper, tokens, saveTokens, refreshTokensDisplay);
+    const cleanupFn = renderActiveTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
     if (typeof cleanupFn === 'function') {
       currentCleanup = cleanupFn;
     }
@@ -82,42 +82,30 @@ const initDesktop = async (tokens) => {
   registerImportHotkey(bodyWrapper, tokens, saveTokens);
 };
 
-/**
- * Initialize mobile-specific components.
- */
-const initMobile = async () => {
+const initMobile = () => {
   document.documentElement.classList.add('mobile');
 };
 
 const handleTabChange = (tab) => {
-  console.log(123, 'new tab', tab);
   activeTab = tab;
-
   refreshTokensDisplay();
 };
 
-// Initialize the application
 const initApp = async () => {
   const tokens = await getStoredTokens();
+
   Tabs(activeTab, handleTabChange);
 
   if (isMobile) {
-    // Initialize mobile UI
-    await initMobile();
-  } else {
-    // Initialize desktop UI
-    await initDesktop(tokens);
+    initMobile();
   }
 
-  // Render tokens or empty screen (common for both platforms)
-  if (tokens.length === 0) {
-    EmptyScreen(wrapper, tokens, saveTokens, refreshTokensDisplay);
-    return;
-  }
+  await initDesktop(tokens);
 
-  const result = getMainComponent(wrapper, tokens, saveTokens, refreshTokensDisplay);
-  if (typeof result === 'function') {
-    currentCleanup = result;
+  const renderResult = renderActiveTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
+
+  if (typeof renderResult === 'function') {
+    currentCleanup = renderResult;
   }
 };
 

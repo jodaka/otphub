@@ -1,53 +1,10 @@
+import { executeTokenImport, parseTokensFromJson } from './importTokens.js';
 import { tinykeys } from './tinykeys.module.js';
 import { mergeAndSaveTokens } from './utils.js';
 
 /**
  * @typedef {import("./types.js").Token} Token
  */
-
-/**
- * Imports tokens from a JSON file using Tauri dialog and fs.
- *
- * @param {Token[]} storedTokens - The existing stored tokens
- * @returns {Promise<number>} The number of tokens imported
- */
-export const importTokensFromFile = async (storedTokens) => {
-  const { open } = window.__TAURI__.dialog;
-  const { readTextFile } = window.__TAURI__.fs;
-
-  try {
-    // Open the file picker
-    const path = await open({
-      filters: [
-        {
-          name: 'JSON Files',
-          extensions: ['json'],
-        },
-      ],
-    });
-
-    if (!path) {
-      return 0;
-    }
-
-    // Read the file content
-    const content = await readTextFile(path);
-
-    // Parse JSON
-    const json = JSON.parse(content);
-
-    // Handle both direct array and nested format (like 2FAS export)
-    const importedTokens = Array.isArray(json) ? json : json.tokens || json.data || [];
-
-    const importCount = mergeAndSaveTokens(importedTokens, storedTokens);
-    return importCount;
-  } catch (err) {
-    if (err.name !== 'AbortError') {
-      console.error('Failed to import tokens:', err);
-    }
-    return 0;
-  }
-};
 
 /**
  * Register global hotkey for importing tokens.
@@ -69,4 +26,40 @@ export const registerImportHotkey = (wrapper, storedTokens, saveTokensCallback) 
     'Control+I': handleImport,
     'Meta+I': handleImport,
   });
+};
+
+export const importTokensFromFile = async (tokens, saveTokensCallback, onImportComplete) => {
+  const { open } = window.__TAURI__.dialog;
+  const { readTextFile } = window.__TAURI__.fs;
+
+  const path = await open({
+    filters: [
+      {
+        name: 'JSON Files',
+        extensions: ['json', '2fas'],
+      },
+    ],
+  });
+
+  if (!path) {
+    return;
+  }
+
+  const content = await readTextFile(path);
+  const json = JSON.parse(content);
+  const importedTokens = parseTokensFromJson(json);
+
+  if (!importedTokens.length) {
+    return;
+  }
+
+  const { ask } = window.__TAURI__.dialog;
+  const confirmed = await ask(`Found ${importedTokens.length} accounts. Do you want to import them?`, {
+    title: 'Import Tokens',
+    type: 'info',
+  });
+
+  if (confirmed) {
+    executeTokenImport(importedTokens, tokens, saveTokensCallback, onImportComplete);
+  }
 };
