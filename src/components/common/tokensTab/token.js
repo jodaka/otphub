@@ -5,6 +5,9 @@ const TOKEN_GRADIENT_START = '#7B8ACE';
 const TOKEN_GRADIENT_END = '#515DB0';
 const HUE_STEP = 45;
 
+/**
+ * Represents a single TOTP token card with live countdown and rendering logic.
+ */
 export class Token {
   token;
   config;
@@ -12,23 +15,37 @@ export class Token {
   isInViewport = false;
   needTokenUpdate = false;
 
+  /**
+   * @param {import('../../../js/types.js').Token} config - The token configuration.
+   * @param {number} index - The token's index in the list.
+   */
   constructor(config, index) {
     this.config = config;
     this.index = index;
     this.totp = new TOTP(config);
   }
 
+  /**
+   * Generates a new OTP token and updates the remaining time.
+   */
   updateToken() {
     this.token = this.totp.generate();
     this.updateRemaining();
   }
 
+  /**
+   * Calculates the remaining seconds until the next token rotation.
+   * @returns {number} The remaining time in seconds (float).
+   */
   updateRemaining() {
     const remaining = this.totp.period - ((Date.now() / 1000) % this.totp.period);
     this.remaining = Math.ceil(remaining);
     return remaining;
   }
 
+  /**
+   * Re-renders the token value if it has changed since the last generation.
+   */
   renderToken() {
     const newToken = this.totp.generate();
     if (this.token !== newToken) {
@@ -38,10 +55,18 @@ export class Token {
     this.needTokenUpdate = false;
   }
 
+  /**
+   * Returns the formatted token HTML with a spacer between the first and last 3 digits.
+   * @returns {string} The token HTML string.
+   */
   getTokenHTML() {
     return `${this.token.slice(0, 3)}<span class="token__spacer"></span>${this.token.slice(3)}`;
   }
 
+  /**
+   * Updates the countdown counter and schedules token re-rendering.
+   * Skips DOM updates when the token is not in the viewport.
+   */
   updateCounter() {
     if (!this.counterRef || !this.tokenValueRef || !this.counterValueRef) {
       this.counterRef = document.querySelector(`#${this.config.id} .token__remaining`);
@@ -71,6 +96,10 @@ export class Token {
     }
   }
 
+  /**
+   * Renders the full token card HTML.
+   * @returns {string} The HTML string for the token card.
+   */
   render() {
     const hueOffset = this.index * HUE_STEP;
     const bgGradientStartColor = adjustHue(TOKEN_GRADIENT_START, hueOffset);

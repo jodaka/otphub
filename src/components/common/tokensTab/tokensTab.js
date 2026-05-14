@@ -5,6 +5,12 @@ const { writeText } = window.__TAURI__.clipboardManager;
 
 let windowIsVisible = true;
 
+/**
+ * Renders all token instances into the wrapper element.
+ *
+ * @param {HTMLElement} wrapper - The container element.
+ * @param {Token[]} tokens - Array of Token class instances.
+ */
 // full render
 const rerenderAllTokens = (wrapper, tokens) => {
   const html = tokens.reduce((acc, instance) => {
@@ -15,6 +21,12 @@ const rerenderAllTokens = (wrapper, tokens) => {
   wrapper.innerHTML = `<div class="tokens">${html}</div>`;
 };
 
+/**
+ * Handles click on a token card: copies the token to clipboard and shows a "Copied" feedback.
+ *
+ * @param {MouseEvent} e - The click event.
+ * @param {Token[]} tokenInstances - Array of Token instances.
+ */
 const handleTokenClick = async (e, tokenInstances) => {
   const tokenWrapper = e.target.closest('.token');
   if (tokenWrapper) {
@@ -30,6 +42,13 @@ const handleTokenClick = async (e, tokenInstances) => {
   }
 };
 
+/**
+ * Creates the Tokens tab with live countdown, visibility tracking, and clipboard copy.
+ *
+ * @param {HTMLElement} wrapper - The DOM element to render into.
+ * @param {import('../../../../js/types.js').Token[]} tokens - The stored tokens.
+ * @returns {Function} Cleanup function that removes listeners and intervals.
+ */
 export const TokensTab = (wrapper, tokens = []) => {
   const abortController = new AbortController();
 
@@ -51,6 +70,10 @@ export const TokensTab = (wrapper, tokens = []) => {
   );
 
   let updateInterval;
+
+  /**
+   * Restarts the interval that updates token countdowns every 80ms.
+   */
   const restartUpdateInterval = () => {
     if (updateInterval) {
       clearInterval(updateInterval);

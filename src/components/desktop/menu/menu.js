@@ -8,6 +8,9 @@ const appMinimize = () => {
   window.__TAURI__.app.hide();
 };
 
+/**
+ * Desktop custom menu bar with traffic-light buttons and keyboard shortcuts.
+ */
 export class Menu {
   wrapper = null;
   titleRef = null;
@@ -27,6 +30,9 @@ export class Menu {
     this.minimizeButtonRef.addEventListener('click', appMinimize);
   }
 
+  /**
+   * Renders the menu bar HTML into the wrapper.
+   */
   render() {
     this.wrapper.innerHTML = `
       <div class="menu__buttonsWrapper">
@@ -43,6 +49,10 @@ export class Menu {
     this.minimizeButtonRef = this.wrapper.querySelector('.menu__button--minimize');
   }
 
+  /**
+   * Updates the menu title text.
+   * @param {string} newTitle - The new title to display.
+   */
   setTitle(newTitle) {
     this.titleRef.innerText = newTitle;
   }

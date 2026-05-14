@@ -3,6 +3,15 @@ import { EditToken } from './editToken.js';
 
 const HUE_STEP = 45;
 
+/**
+ * Renders the token editing tab with reorder and delete controls.
+ *
+ * @param {HTMLElement} wrapper - The DOM element to render into.
+ * @param {import('../../../../js/types.js').Token[]} tokens - The current stored tokens.
+ * @param {Function} saveTokensCallback - Callback to save the updated token list.
+ * @param {Function} onChangeCallback - Callback to refresh the main display after changes.
+ * @returns {Function} Cleanup function that aborts event listeners.
+ */
 export const EditTokensTab = (wrapper, tokens = [], saveTokensCallback, onChangeCallback) => {
   const abortController = new AbortController();
   let clickHandlerInProcess = false;

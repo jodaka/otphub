@@ -2,6 +2,19 @@ import { exportTokensJSON } from '../../../js/export.js';
 import { importTokensFromFile } from '../../../js/import.js';
 import { isMobile } from '../../../js/utils.js';
 
+/**
+ * @typedef {import("../../../js/types.js").Token} Token
+ */
+
+/**
+ * Renders the Settings tab with import, export, and mobile QR scan buttons.
+ *
+ * @param {HTMLElement} wrapper - The DOM element to render into.
+ * @param {Token[]} tokens - The current stored tokens.
+ * @param {Function} saveTokensCb - Callback to save tokens after import.
+ * @param {Function} refreshTokensDisplay - Callback to refresh the main display.
+ * @returns {Function} Cleanup function that aborts event listeners.
+ */
 export const SettingsTab = (wrapper, tokens = [], saveTokensCb, refreshTokensDisplay) => {
   const abortController = new AbortController();
 

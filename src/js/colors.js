@@ -1,3 +1,10 @@
+/**
+ * Adjusts the hue of an RGB hex color by a given number of degrees.
+ *
+ * @param {string} rgb - The RGB hex color string (e.g., "#7B8ACE").
+ * @param {number} degree - The number of degrees to shift the hue.
+ * @returns {string} The resulting RGB hex color string.
+ */
 export function adjustHue(rgb, degree) {
   var hsl = rgbToHSL(rgb);
   hsl.h += degree;
@@ -9,6 +16,12 @@ export function adjustHue(rgb, degree) {
   return hslToRGB(hsl);
 }
 
+/**
+ * Converts an RGB hex string to an HSL object.
+ *
+ * @param {string} rgb - The RGB hex color string.
+ * @returns {{h: number, s: number, l: number}} The HSL representation.
+ */
 // exepcts a string and returns an object
 function rgbToHSL(rgb) {
   // strip the leading # if it's there
@@ -52,6 +65,12 @@ function rgbToHSL(rgb) {
   };
 }
 
+/**
+ * Converts an HSL object to an RGB hex string.
+ *
+ * @param {{h: number, s: number, l: number}} hsl - The HSL color object.
+ * @returns {string} The RGB hex color string.
+ */
 // expects an object and returns a string
 function hslToRGB(hsl) {
   var h = hsl.h,
@@ -97,6 +116,13 @@ function hslToRGB(hsl) {
   return rgbToHex(r, g, b);
 }
 
+/**
+ * Normalizes an RGB value and adds an offset.
+ *
+ * @param {number} color - The raw color value.
+ * @param {number} m - The offset to add.
+ * @returns {number} The normalized color value.
+ */
 function normalize_rgb_value(color, m) {
   color = Math.floor((color + m) * 255);
   if (color < 0) {
@@ -105,6 +131,14 @@ function normalize_rgb_value(color, m) {
   return color;
 }
 
+/**
+ * Converts RGB values to a hex string.
+ *
+ * @param {number} r - Red value.
+ * @param {number} g - Green value.
+ * @param {number} b - Blue value.
+ * @returns {string} The hex color string.
+ */
 function rgbToHex(r, g, b) {
   return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
