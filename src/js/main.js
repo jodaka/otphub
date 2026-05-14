@@ -68,8 +68,7 @@ const refreshTokensDisplay = () => {
  * @param {Token[]} tokens - The stored tokens.
  */
 const initDesktop = async (tokens) => {
-  const [{ Dropzone }, { Menu }, { registerExportHotkey }, { registerImportHotkey }] = await Promise.all([
-    import('../components/desktop/dropzone/dropzone.js'),
+  const [{ Menu }, { registerExportHotkey }, { registerImportHotkey }] = await Promise.all([
     import('../components/desktop/menu/menu.js'),
     import('./export.js'),
     import('./import.js'),
@@ -79,7 +78,6 @@ const initDesktop = async (tokens) => {
   new Menu();
 
   const bodyWrapper = document.body;
-  new Dropzone(bodyWrapper, tokens, saveTokens, refreshTokensDisplay);
   registerExportHotkey(bodyWrapper, tokens);
   registerImportHotkey(bodyWrapper, tokens, saveTokens);
 };

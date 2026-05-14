@@ -4,7 +4,7 @@
   height: 100%;
   width: 100vw;
   gap: 10px;
-  padding: 8px;
+  padding: 0 8px;
   flex-grow: 1;
 
   align-items: center;

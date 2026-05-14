@@ -16,7 +16,6 @@ OTPHub is a simple TOTP (Time-based One-Time Password) code generator applicatio
 - **Components:**
   - `src/components/common/tokens/` - Token display and TOTP generation
   - `src/components/desktop/menu/` - Window controls (macOS-style, disabled on mobile)
-  - `src/components/desktop/dropzone/` - File import for 2FAS exports (disabled on mobile)
   - `src/components/common/emptyScreen/` - Empty state UI
   - `src/components/common/scannerButton/` - a dedicated button that fires camera for QR codes reading
 - **Libraries:**
@@ -46,7 +45,6 @@ OTPHub is a simple TOTP (Time-based One-Time Password) code generator applicatio
 | `src-tauri/src/lib.rs` | Main library with `#[cfg_attr(mobile, tauri::mobile_entry_point)]` |
 | `src-tauri/capabilities/desktop.json` | Permissions for desktop platforms |
 | `src-tauri/capabilities/mobile.json` | Permissions for Android/iOS |
-| `src/components/dropzone/parsers/2faa.js` | Parser for 2FAS backup files |
 | `src/components/tokens/otpauth.esm.js` | OTP generation library |
 
 ## Tauri Plugin Usage (Global API - No Bundler)
@@ -155,7 +153,6 @@ All UI components under ./components are devided between mobile and desktop (tha
 ### Mobile (Android/iOS)
 - Native mobile UI
 - Menu hidden (`document.documentElement.classList.add('mobile')`)
-- Dropzone disabled (drag-drop not applicable)
 - Viewport meta tag for proper scaling
 
 ## Types

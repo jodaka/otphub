@@ -11,7 +11,6 @@ export const Tabs = (activeTab, onTabChange) => {
     if (btn) {
       btn.classList.add('active');
     }
-    console.log(123, oldActiveTab, btn);
   };
 
   const handleTabsClick = (evt) => {
@@ -38,5 +37,5 @@ export const Tabs = (activeTab, onTabChange) => {
   };
 
   tabs.addEventListener('click', handleTabsClick);
-  updateActiveTab();
+  updateActiveTab(activeTab);
 };

@@ -1,4 +1,17 @@
 .settings__list {
+  --text-shadow: #b05c51;
+  --bg-gradient-start: #ce807b;
+  --bg-gradient-end: #b05c51;
+
+  background: linear-gradient(176deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  box-shadow: rgba(50, 50, 50, 0.3) 0px 0px 5px 2px;
+  border-radius: 20px;
+  color: white;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  margin: 0 8px;
+
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -9,7 +22,7 @@
 }
 
 .settings__button {
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,5 +36,5 @@
 .settings__buttonIcon {
   width: 24px;
   height: 24px;
-  fill: white;
+  fill: black;
 }

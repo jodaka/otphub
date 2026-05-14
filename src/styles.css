@@ -23,6 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .mobile body {
@@ -36,7 +37,6 @@ body {
 .main {
   flex-grow: 1;
   display: flex;
-  border: 1px solid gold;
   overflow-y: auto;
 }
 
