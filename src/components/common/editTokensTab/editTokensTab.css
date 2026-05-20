@@ -7,16 +7,41 @@
   min-height: 113px;
 }
 
+.control {
+  width: 30px;
+  height: 30px;
+  appearance: none;
+  border: none;
+  background: none;
+}
+
+.control {
+  fill: white;
+  transition: background-color ease 0.2s;
+  cursor: pointer;
+}
+
+.control:hover {
+  fill: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color ease 0.2s;
+  border-radius: 4px;
+}
+
+.control__spacer {
+  width: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  height: 20px;
+}
+
 .token__controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: fit-content;
   gap: 10px;
   grid-area: controls;
-}
 
-.control--delete {
-  background: rgba(220, 50, 50, 0.3);
-  border-color: rgba(255, 100, 100, 0.4);
+  align-self: end;
+  justify-self: end;
 }

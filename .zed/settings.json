@@ -5,16 +5,25 @@
 {
   "lsp": {
     "tailwindcss-language-server": {
+      "binary": {
+        "path": "/dev/null",
+      },
       "settings": {
         "enable": false,
       },
     },
     "eslint": {
+      "binary": {
+        "path": "/dev/null",
+      },
       "settings": {
         "enable": false,
       },
     },
     "vtsls": {
+      "binary": {
+        "path": "/dev/null",
+      },
       "settings": {
         "enable": false,
       },
