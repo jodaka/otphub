@@ -66,19 +66,11 @@ const refreshTokensDisplay = () => {
  * Initialize desktop-specific components.
  * @param {Token[]} tokens - The stored tokens.
  */
-const initDesktop = async (tokens) => {
-  const [{ Menu }, { registerExportHotkey }, { registerImportHotkey }] = await Promise.all([
-    import('../components/desktop/menu/menu.js'),
-    import('./export.js'),
-    import('./import.js'),
-  ]);
+const initDesktop = async () => {
+  const [{ Menu }] = await Promise.all([import('../components/desktop/menu/menu.js')]);
 
   injectCSS('/components/desktop/desktop.css');
   new Menu();
-
-  const bodyWrapper = document.body;
-  registerExportHotkey(bodyWrapper, tokens);
-  registerImportHotkey(bodyWrapper, tokens, saveTokens);
 };
 
 const initMobile = () => {
@@ -90,16 +82,34 @@ const handleTabChange = (tab) => {
   refreshTokensDisplay();
 };
 
-const initApp = async () => {
-  const tokens = await getStoredTokens();
+/**
+ * Initialize desktop-specific components.
+ * @param { Token[] } tokens - The stored tokens.
+ */
+const initCommon = async (tokens) => {
+  const [{ registerExportHotkey }, { registerImportHotkey }] = await Promise.all([
+    import('./export.js'),
+    import('./import.js'),
+  ]);
 
   Tabs(activeTab, handleTabChange);
 
+  const bodyWrapper = document.body;
+  registerExportHotkey(bodyWrapper, tokens);
+  registerImportHotkey(bodyWrapper, tokens, saveTokens);
+};
+
+const initApp = async () => {
+  const tokens = await getStoredTokens();
+
+  initCommon(tokens);
+
+  alert(isMobile);
   if (isMobile) {
     initMobile();
+  } else {
+    await initDesktop();
   }
-
-  await initDesktop(tokens);
 
   const renderResult = renderActiveTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
 
