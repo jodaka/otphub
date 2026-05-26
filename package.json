@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@11.1.1",
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint && pnpm format"
+    "pre-commit": "pnpm lint:staged && pnpm format:staged"
   },
   "scripts": {
     "tauri": "tauri",
@@ -18,7 +18,9 @@
     "build:android": "pnpm bump-version && tauri android build",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --write ./src",
+    "lint:staged": "biome lint --staged --write",
     "format": "biome format --write ./src",
+    "format:staged": "biome format --staged --write",
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {

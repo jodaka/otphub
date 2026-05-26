@@ -20,14 +20,6 @@
         "enable": false,
       },
     },
-    "vtsls": {
-      "binary": {
-        "path": "/dev/null",
-      },
-      "settings": {
-        "enable": false,
-      },
-    },
   },
   "languages": {
     "JavaScript": {

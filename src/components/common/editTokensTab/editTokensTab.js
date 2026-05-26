@@ -59,7 +59,9 @@ export const EditTokensTab = (wrapper, tokens = [], saveTokensCallback, onChange
     }
 
     const btn = e.target.closest('.control');
-    if (!btn) return;
+    if (!btn) {
+      return;
+    }
 
     clickHandlerInProcess = true;
 

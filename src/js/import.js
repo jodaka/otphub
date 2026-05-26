@@ -35,7 +35,7 @@ export const importTokensFromFile = async (tokens, saveTokensCallback, onImportC
     filters: [
       {
         name: 'JSON Files',
-        extensions: ['json', '2fas'],
+        extensions: ['json', '2fas', 'txt'],
       },
     ],
   });
