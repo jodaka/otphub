@@ -104,7 +104,6 @@ const initApp = async () => {
 
   initCommon(tokens);
 
-  alert(isMobile);
   if (isMobile) {
     initMobile();
   } else {

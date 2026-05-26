@@ -30,7 +30,7 @@
         "transparent": true,
         "decorations": false,
         "dragDropEnabled": false,
-        "useHttpsScheme": true
+        "useHttpsScheme": false
       }
     ],
     "security": {

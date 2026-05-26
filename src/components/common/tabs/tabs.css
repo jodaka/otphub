@@ -16,14 +16,23 @@
   --hover-color: #5588ff;
 }
 
+.mobile .tabs {
+  height: 55px;
+}
+
 .tab {
   color: var(--accent-color);
   width: 40px;
   cursor: pointer;
+  text-align: center;
 }
 
 .tab svg {
   width: 25px;
+}
+
+.mobile .tab svg {
+  width: 32px;
 }
 
 .tab:hover svg {

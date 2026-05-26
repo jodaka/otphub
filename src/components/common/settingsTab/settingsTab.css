@@ -1,9 +1,5 @@
 .settings__list {
-  --text-shadow: #b05c51;
-  --bg-gradient-start: #ce807b;
-  --bg-gradient-end: #b05c51;
-
-  background: linear-gradient(176deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  background: rgba(54, 57, 67, 0.9);
   box-shadow: rgba(50, 50, 50, 0.3) 0px 0px 5px 2px;
   border-radius: 20px;
   color: white;
@@ -21,8 +17,12 @@
   justify-content: flex-start;
 }
 
+.mobile .settings__list {
+  background: none;
+}
+
 .settings__button {
-  color: black;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,11 +30,11 @@
   appearance: none;
   background: none;
   border: none;
-  font-size: 130%;
+  font-size: 1rem;
 }
 
 .settings__buttonIcon {
   width: 24px;
   height: 24px;
-  fill: black;
+  fill: white;
 }

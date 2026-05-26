@@ -50,20 +50,20 @@ export const SettingsTab = (wrapper, tokens = [], saveTokensCb, refreshTokensDis
 
       <button class="settings__button importButton">
         <svg class="settings__buttonIcon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5" width="100%" height="100" viewBox="0 0 61 54">
-          <path d="M125 119.5c0 6.9-5.6 12.5-12.5 12.5h-25c-6.9 0-12.5-5.6-12.5-12.5v-25C75 87.6 80.6 82 87.5 82h25c6.9 0 12.5 4.6 12.5 11.5" style="fill:none;stroke:#000;stroke-width:3.75px" transform="translate(-73.13 -80.13)"/>
-          <path d="m144.12 105.94-46.53.04" style="fill:none;stroke:#000;stroke-width:4.59px" transform="matrix(-.72 0 0 1.06 128.34 -86.6)"/>
-          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:#000;stroke-width:4.17px" transform="matrix(-1 0 0 1 166.59 -78.84)"/>
-          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:#000;stroke-width:4.17px" transform="matrix(-1 0 0 -1 166.59 130.59)"/>
+          <path d="M125 119.5c0 6.9-5.6 12.5-12.5 12.5h-25c-6.9 0-12.5-5.6-12.5-12.5v-25C75 87.6 80.6 82 87.5 82h25c6.9 0 12.5 4.6 12.5 11.5" style="fill:none;stroke:currentColor;stroke-width:3.75px" transform="translate(-73.13 -80.13)"/>
+          <path d="m144.12 105.94-46.53.04" style="fill:none;stroke:currentColor;stroke-width:4.59px" transform="matrix(-.72 0 0 1.06 128.34 -86.6)"/>
+          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:currentColor;stroke-width:4.17px" transform="matrix(-1 0 0 1 166.59 -78.84)"/>
+          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:currentColor;stroke-width:4.17px" transform="matrix(-1 0 0 -1 166.59 130.59)"/>
         </svg>
         Import
       </button>
 
       <button class="settings__button exportButton">
         <svg class="settings__buttonIcon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5" viewBox="0 0 67 54" width="100%" height="100">
-          <path d="M125 119.5c0 6.9-5.6 12.5-12.5 12.5h-25c-6.9 0-12.5-5.6-12.5-12.5v-25C75 87.6 80.6 82 87.5 82h25c6.9 0 12.5 4.6 12.5 11.5" style="fill:none;stroke:#000;stroke-width:3.75px" transform="translate(-73.13 -80.13)"/>
-          <path d="m144.12 105.94-46.53.04" style="fill:none;stroke:#000;stroke-width:4.59px" transform="matrix(.72 0 0 1.06 -39.88 -85.6)"/>
-          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:#000;stroke-width:4.17px" transform="translate(-78.13 -77.84)"/>
-          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:#000;stroke-width:4.17px" transform="matrix(1 0 0 -1 -78.13 131.59)"/>
+          <path d="M125 119.5c0 6.9-5.6 12.5-12.5 12.5h-25c-6.9 0-12.5-5.6-12.5-12.5v-25C75 87.6 80.6 82 87.5 82h25c6.9 0 12.5 4.6 12.5 11.5" style="fill:none;stroke:currentColor;stroke-width:3.75px" transform="translate(-73.13 -80.13)"/>
+          <path d="m144.12 105.94-46.53.04" style="fill:none;stroke:currentColor;stroke-width:4.59px" transform="matrix(.72 0 0 1.06 -39.88 -85.6)"/>
+          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:currentColor;stroke-width:4.17px" transform="translate(-78.13 -77.84)"/>
+          <path d="m134.7 97.18 7.27 7.07" style="fill:none;stroke:currentColor;stroke-width:4.17px" transform="matrix(1 0 0 -1 -78.13 131.59)"/>
         </svg>
         Export
       </button>
