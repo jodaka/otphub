@@ -4,6 +4,9 @@ on:
     tags:
       - 'v*'
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
@@ -65,5 +68,5 @@ jobs:
         with:
           files: |
             src-tauri/target/release/bundle/dmg/*.dmg
-            src-tauri/gen/android/app/build/outputs/apk/release/*.apk
+            src-tauri/gen/android/app/build/outputs/apk/universal/release/*.apk
           generate_release_notes: true
