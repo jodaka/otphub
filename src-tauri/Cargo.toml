@@ -1,6 +1,6 @@
 [package]
 name = "otphub"
-version = "1.0.9"
+version = "1.0.10"
 description = "OTP application"
 authors = ["Anton Kudris"]
 edition = "2021"
