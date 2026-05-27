@@ -1,5 +1,5 @@
 /**
- * Bump patch version in package.json and sync to Cargo.toml
+ * Bump patch version in package.json, Cargo.toml, and tauri.conf.json
  */
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
@@ -11,6 +11,7 @@ const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 const packageJsonPath = join(rootDir, 'package.json');
 const cargoTomlPath = join(rootDir, 'src-tauri', 'Cargo.toml');
+const tauriConfPath = join(rootDir, 'src-tauri', 'tauri.conf.json');
 
 // Read package.json
 const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
@@ -26,10 +27,12 @@ writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
 // Update Cargo.toml
 let cargoToml = readFileSync(cargoTomlPath, 'utf-8');
-cargoToml = cargoToml.replace(
-  /^version\s*=\s*"[^"]+"/m,
-  `version = "${newVersion}"`,
-);
+cargoToml = cargoToml.replace(/^version\s*=\s*"[^"]+"/m, `version = "${newVersion}"`);
 writeFileSync(cargoTomlPath, cargoToml);
+
+// Update tauri.conf.json
+const tauriConf = JSON.parse(readFileSync(tauriConfPath, 'utf-8'));
+tauriConf.version = newVersion;
+writeFileSync(tauriConfPath, JSON.stringify(tauriConf, null, 2) + '\n');
 
 console.log(`Version bumped: ${currentVersion} → ${newVersion}`);
