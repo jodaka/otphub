@@ -1,6 +1,9 @@
 # OTPHub
 
 A minimal TOTP (Time-based One-Time Password) code generator built with **Tauri v2**. 
+
+<img src="./docs/otphub.png" width="400" alt="otphub"/>
+
 ## Features
 
 - **TOTP Generation** — Generate time-based one-time passwords for multiple accounts
