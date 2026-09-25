@@ -89,7 +89,7 @@ export const ScanQRcode = (onTokenAdded, existingTokens, saveTokens) => {
       existingTokens.push(token);
     }
 
-    saveTokens(existingTokens);
+    await saveTokens(existingTokens);
 
     if (typeof onTokenAdded === 'function') {
       onTokenAdded();

@@ -14,6 +14,9 @@ let activeTab = 'otp';
 /** @type {Function|null} */
 let tabCleanupFn = null;
 
+/** @type {{ setActiveTab: (tab: string) => void }|null} */
+let tabsApi = null;
+
 /**
  * @typedef {import("./types.js").Token} Token
  */
@@ -36,7 +39,7 @@ const renderActiveTab = (wrapper, tokens, saveTokens, refreshTokensDisplay) => {
     case 'edit':
       return EditTokensTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
     case 'settings':
-      return SettingsTab(wrapper, tokens, saveTokens, refreshTokensDisplay);
+      return SettingsTab(wrapper, tokens, saveTokens, refreshTokensDisplay, () => switchToTab('otp'));
   }
 };
 
@@ -83,6 +86,18 @@ const handleTabChange = (tab) => {
 };
 
 /**
+ * Switches to the given tab, updates the tab bar and re-renders the content.
+ * @param {'otp'|'edit'|'settings'} tab - The tab to activate.
+ */
+const switchToTab = (tab) => {
+  activeTab = tab;
+  if (tabsApi) {
+    tabsApi.setActiveTab(tab);
+  }
+  refreshTokensDisplay();
+};
+
+/**
  * Initialize desktop-specific components.
  * @param { Token[] } tokens - The stored tokens.
  */
@@ -92,7 +107,7 @@ const initCommon = async (tokens) => {
     import('./import.js'),
   ]);
 
-  Tabs(activeTab, handleTabChange);
+  tabsApi = Tabs(activeTab, handleTabChange);
 
   const bodyWrapper = document.body;
   registerExportHotkey(bodyWrapper, tokens);

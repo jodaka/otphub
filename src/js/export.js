@@ -1,8 +1,33 @@
 import { tinykeys } from './tinykeys.module.js';
+import { isAndroid } from './utils.js';
 
 /**
  * @typedef {import("./types.js").Token} Token
  */
+
+/**
+ * Writes the export file to the path chosen by the user.
+ *
+ * On Android the save dialog returns a `content://` URI which the fs plugin
+ * cannot write to without producing a zero-length file, so the native
+ * content-resolver plugin is used instead.
+ *
+ * @param {string} path - The destination path or URI.
+ * @param {string} jsonContent - The serialized export contents.
+ * @returns {Promise<void>}
+ */
+const writeExportFile = async (path, jsonContent) => {
+  if (isAndroid) {
+    await window.__TAURI__.core.invoke('plugin:content-resolver|write_text_to_uri', {
+      uri: path,
+      contents: jsonContent,
+    });
+    return;
+  }
+
+  const { writeTextFile } = window.__TAURI__.fs;
+  await writeTextFile(path, jsonContent);
+};
 
 /**
  * Exports the current tokens as a JSON file using Tauri dialog and fs.
@@ -10,7 +35,6 @@ import { tinykeys } from './tinykeys.module.js';
  */
 export const exportTokensJSON = async (tokens) => {
   const { save } = window.__TAURI__.dialog;
-  const { writeTextFile } = window.__TAURI__.fs;
 
   const date = new Date().toISOString().split('T')[0];
 
@@ -37,7 +61,7 @@ export const exportTokensJSON = async (tokens) => {
 
       // Write data to the selected path
       const jsonContent = JSON.stringify(fileContents, null, 2);
-      await writeTextFile(path, jsonContent);
+      await writeExportFile(path, jsonContent);
       console.log('Tokens exported to:', path);
     }
   } catch (err) {

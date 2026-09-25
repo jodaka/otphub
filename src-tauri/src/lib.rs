@@ -14,6 +14,18 @@ pub fn run() {
         builder = builder.plugin(tauri_plugin_barcode_scanner::init());
     }
 
+    #[cfg(target_os = "android")]
+    {
+        builder = builder.plugin(
+            tauri::plugin::Builder::<tauri::Wry, ()>::new("content-resolver")
+                .setup(|_app, api| {
+                    api.register_android_plugin("com.kudris.otphub", "ContentResolverPlugin")?;
+                    Ok(())
+                })
+                .build(),
+        );
+    }
+
     #[cfg(desktop)]
     {
         builder = builder.plugin(tauri_plugin_window_state::Builder::default().build());

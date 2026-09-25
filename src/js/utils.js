@@ -71,6 +71,12 @@ export const osType = window.__TAURI_PLUGIN_OS__.type();
 export const isMobile = osType === 'android' || osType === 'ios';
 
 /**
+ * Flag indicating if the app is running on Android.
+ * @type {boolean}
+ */
+export const isAndroid = osType === 'android';
+
+/**
  * Dynamically injects a CSS file into the document head.
  * @param {string} href - The path to the CSS file.
  */

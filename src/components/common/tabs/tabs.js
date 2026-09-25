@@ -3,6 +3,7 @@
  *
  * @param {string} activeTab - The initially active tab name ('otp', 'edit', or 'settings').
  * @param {Function} onTabChange - Callback fired when a tab is clicked.
+ * @returns {{ setActiveTab: (tab: string) => void }} API to update the active tab programmatically.
  */
 export const Tabs = (activeTab, onTabChange) => {
   const tabs = document.querySelector('.tabs');
@@ -48,4 +49,6 @@ export const Tabs = (activeTab, onTabChange) => {
 
   tabs.addEventListener('click', handleTabsClick);
   updateActiveTab(activeTab);
+
+  return { setActiveTab: updateActiveTab };
 };

@@ -13,15 +13,17 @@ import { isMobile } from '../../../js/utils.js';
  * @param {Token[]} tokens - The current stored tokens.
  * @param {Function} saveTokensCb - Callback to save tokens after import.
  * @param {Function} refreshTokensDisplay - Callback to refresh the main display.
+ * @param {Function} [onTokenAdded] - Callback fired after a QR code token is added.
  * @returns {Function} Cleanup function that aborts event listeners.
  */
-export const SettingsTab = (wrapper, tokens = [], saveTokensCb, refreshTokensDisplay) => {
+export const SettingsTab = (wrapper, tokens = [], saveTokensCb, refreshTokensDisplay, onTokenAdded) => {
   const abortController = new AbortController();
 
   const initScanButton = () => {
     import('../scanQRcode/scanQRcode.js').then(({ ScanQRcode }) => {
       const scannerContainer = wrapper.querySelector('.scannerButton');
-      const scanFn = ScanQRcode(refreshTokensDisplay, tokens, saveTokensCb);
+      const handleTokenAdded = typeof onTokenAdded === 'function' ? onTokenAdded : refreshTokensDisplay;
+      const scanFn = ScanQRcode(handleTokenAdded, tokens, saveTokensCb);
       scannerContainer.addEventListener('click', () => scanFn(), { signal: abortController.signal });
     });
   };

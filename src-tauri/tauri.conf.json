@@ -15,7 +15,7 @@
   },
   "productName": "otphub",
   "mainBinaryName": "otphub",
-  "version": "1.0.10",
+  "version": "1.0.24",
   "identifier": "com.kudris.otphub",
   "plugins": {},
   "app": {

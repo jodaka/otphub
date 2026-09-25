@@ -27,6 +27,7 @@
     "dialog:allow-save",
     "dialog:allow-message",
     "fs:allow-read-text-file",
+    "content-resolver:allow-write-text-to-uri",
     "mcp-bridge:default",
     "core:event:default",
     "store:default"

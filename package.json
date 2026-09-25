@@ -1,10 +1,10 @@
 {
   "name": "otphub",
   "private": true,
-  "version": "1.0.10",
+  "version": "1.0.24",
   "type": "module",
   "license": "GPL-3.0-only",
-  "packageManager": "pnpm@11.3.0",
+  "packageManager": "pnpm@12.6.0",
   "simple-git-hooks": {
     "pre-commit": "pnpm lint:staged && pnpm format:staged"
   },
@@ -16,7 +16,7 @@
     "release": "tauri build",
     "release:android": "tauri android build",
     "build": "tauri build",
-    "build:android": "pnpm bump-version && tauri android build",
+    "build:android": "pnpm bump-version && JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home tauri android build --apk",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --write ./src",
     "lint:staged": "biome lint --staged --write",
@@ -26,14 +26,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
-    "@tauri-apps/cli": "^2.10.1",
-    "simple-git-hooks": "^2.13.1"
+    "@tauri-apps/cli": "^2.11.5",
+    "simple-git-hooks": "^2.14.0"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.10.1",
-    "@tauri-apps/plugin-clipboard-manager": "^2.3.2",
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-clipboard-manager": "^2.3.3",
     "@tauri-apps/plugin-os": "^2.3.2",
     "@tauri-apps/plugin-process": "^2.3.1",
-    "@tauri-apps/plugin-store": "^2"
+    "@tauri-apps/plugin-store": "^2.4.5"
   }
 }
